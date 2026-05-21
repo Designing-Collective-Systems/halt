@@ -7,6 +7,7 @@ const CONFIG = {
     showInstructionFeedback: true,
     tutorialEnabled: true,
     nogoHoldDuration: 5000,
+    goResponseWindow: 2500,
     pendingPromptText: 'Hold...',
     skipOnLateRelease: false,
     skipOnFailedInhibition: false,
@@ -129,6 +130,7 @@ async function loadConfig() {
         PRACTICE_SEQUENCE   = cfg.PRACTICE_SEQUENCE   ?? PRACTICE_SEQUENCE;
         CONFIG.tutorialEnabled      = cfg.TUTORIAL_ENABLED ?? CONFIG.tutorialEnabled;
         CONFIG.nogoHoldDuration     = cfg.NOGO_HOLD_DURATION ?? CONFIG.nogoHoldDuration;
+        CONFIG.goResponseWindow     = cfg.GO_RESPONSE_WINDOW ?? CONFIG.goResponseWindow;
         CONFIG.pendingPromptText    = cfg.PENDING_PROMPT_TEXT ?? CONFIG.pendingPromptText;
         CONFIG.skipOnLateRelease    = cfg.SKIP_ON_LATE_RELEASE ?? CONFIG.skipOnLateRelease;
         CONFIG.skipOnFailedInhibition = cfg.SKIP_ON_FAILED_INHIBITION ?? CONFIG.skipOnFailedInhibition;
@@ -466,7 +468,7 @@ function handleTutorialPressStart(step) {
                     if (!STATE.tutorialTrialComplete) {
                         showTutorialRetry("Too slow! Please lift your finger when you see LIFT.");
                     }
-                }, 2500);
+                }, CONFIG.goResponseWindow);
             } else if (step.trialType === 'nogo') {
                 noGoTimeout = setTimeout(() => {
                     if (STATE.isHolding) {
@@ -1223,7 +1225,7 @@ function runStimulusLogic() {
             } else {
                 showRetryModal("Too slow! Please lift your finger when you see LIFT.");
             }
-        }, 2500);
+        }, CONFIG.goResponseWindow);
     } else {
         noGoTimeout = setTimeout(() => {
             if (STATE.isHolding) {

@@ -858,14 +858,19 @@
 
                 <div class="form-grid" style="margin-top:14px; margin-bottom:14px;">
                     <div class="form-field">
-                        <label>HOLD Prompt Duration (ms)</label>
+                        <label>HOLD Trial Duration (ms)</label>
                         <input type="number" id="cfg-nogo-hold-duration" min="1000" max="30000" value="5000">
-                        <div class="hint">How long participant must hold during HOLD trials</div>
+                        <div class="hint">How long the participant must hold without lifting on HOLD trials before the trial is scored correct</div>
+                    </div>
+                    <div class="form-field">
+                        <label>LIFT Response Window (ms)</label>
+                        <input type="number" id="cfg-go-response-window" min="500" max="10000" value="2500">
+                        <div class="hint">How long the participant has to lift their finger after the LIFT prompt appears before the trial is scored as too slow</div>
                     </div>
                     <div class="form-field">
                         <label>Pending Prompt Text</label>
                         <input type="text" id="cfg-pending-prompt-text" value="Hold...">
-                        <div class="hint">Text shown while waiting for stimulus</div>
+                        <div class="hint">Text shown while waiting for the trial prompt to appear</div>
                     </div>
                 </div>
 
@@ -934,17 +939,60 @@
             </div>
 
             <div class="section">
-                <div class="section-label">Stimulus Delays (ms) — one per trial position, comma-separated</div>
-                <textarea class="array-input" id="cfg-stim-delays" rows="3"
-                    placeholder="e.g. 2000, 3000, 2500, 1500 ..."></textarea>
-                <div class="validation-error" id="stim-delay-error"></div>
-            </div>
+                <div class="section-label">Trial Timing</div>
+                <div class="hint" style="margin-bottom: 14px;">
+                    Two waiting windows shape each trial. <strong>Wait Before Prompt</strong> is the delay between the participant pressing the circle and the LIFT or HOLD prompt appearing. It applies to every trial. <strong>Wait Before Recontact</strong> is the delay between the participant lifting their finger and the recontact prompt appearing. It applies only to LIFT trials.
+                </div>
 
-            <div class="section">
-                <div class="section-label">LIFT Prompt Delays (ms) — one per trial position, comma-separated</div>
-                <textarea class="array-input" id="cfg-prompt-delays" rows="3"
-                    placeholder="e.g. 1000, 1500, 1000, 1000 ..."></textarea>
-                <div class="validation-error" id="prompt-delay-error"></div>
+                <!-- Inline trial timeline diagram -->
+                <div style="
+                    background: var(--bg);
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    padding: 18px 20px;
+                    margin-bottom: 20px;
+                    font-size: 12px;
+                    color: var(--text-secondary);
+                ">
+                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">Trial Timeline</div>
+
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; line-height: 1.4;">
+                        <span style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Press &amp; Hold</span>
+                        <span style="color: var(--accent); font-weight: 600;">→ Wait Before Prompt →</span>
+                        <span style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">LIFT or HOLD prompt</span>
+                        <span style="color: var(--text-muted);">→</span>
+                        <span style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Participant responds</span>
+                    </div>
+
+                    <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; line-height: 1.4;">
+                        <span style="font-size: 11px; color: var(--text-muted); font-style: italic; margin-right: 4px;">LIFT trials only:</span>
+                        <span style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Finger lifted</span>
+                        <span style="color: var(--accent); font-weight: 600;">→ Wait Before Recontact →</span>
+                        <span style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Recontact prompt</span>
+                        <span style="color: var(--text-muted);">→</span>
+                        <span style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Press circle again</span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label>Wait Before Prompt (ms)</label>
+                    <div class="hint" style="margin-bottom: 8px;">
+                        Time between the participant pressing the circle and the trial prompt (LIFT or HOLD) appearing. Varying values across trials prevent anticipation. One value per trial position, comma-separated.
+                    </div>
+                    <textarea class="array-input" id="cfg-stim-delays" rows="3"
+                        placeholder="e.g. 2000, 3000, 2500, 1500 ..."></textarea>
+                    <div class="validation-error" id="stim-delay-error"></div>
+                </div>
+
+                <div class="form-field" style="margin-top: 18px;">
+                    <label>Wait Before Recontact (ms)</label>
+                    <div class="hint" style="margin-bottom: 8px;">
+                        LIFT trials only. Time between the participant lifting their finger and the recontact prompt appearing, which tells them to press the circle again. One value per trial position, comma-separated.
+                    </div>
+                    <textarea class="array-input" id="cfg-prompt-delays" rows="3"
+                        placeholder="e.g. 1000, 1500, 1000, 1000 ..."></textarea>
+                    <div class="validation-error" id="prompt-delay-error"></div>
+                </div>
             </div>
 
             <div class="section">
@@ -1042,8 +1090,8 @@
                         <tr>
                             <th>#</th>
                             <th>Type</th>
-                            <th>Stim Delay (ms)</th>
-                            <th>Prompt Delay (ms)</th>
+                            <th>Wait Before Prompt (ms)<br><span style="font-weight:400;font-size:10px;color:var(--text-muted);text-transform:none;letter-spacing:0;">Press → Prompt</span></th>
+                            <th>Wait Before Recontact (ms)<br><span style="font-weight:400;font-size:10px;color:var(--text-muted);text-transform:none;letter-spacing:0;">Lift → Recontact</span></th>
                             <th>X Factor</th>
                             <th>Y Factor</th>
                             <th></th>
@@ -1195,7 +1243,7 @@
                                     <th>Type</th><th>Correct</th><th>Result</th><th>Error</th>
                                     <th>RT-Release</th><th>RT-Down</th><th>Response</th>
                                     <th>Anticipatory</th><th>Slip (ms)</th>
-                                    <th>Stim Delay</th><th>Prompt Delay</th>
+                                    <th>Wait Before Prompt (ms)</th><th>Wait Before Recontact (ms)</th>
                                     <th>X</th><th>Y</th><th>Timestamp</th>
                                 </tr>
                             </thead>
@@ -1374,6 +1422,7 @@ async function loadConfigForm() {
         // Task behavior fields
         document.getElementById('cfg-tutorial-enabled').checked = cfgData.TUTORIAL_ENABLED !== false;
         document.getElementById('cfg-nogo-hold-duration').value = cfgData.NOGO_HOLD_DURATION || 5000;
+        document.getElementById('cfg-go-response-window').value = cfgData.GO_RESPONSE_WINDOW || 2500;
         document.getElementById('cfg-pending-prompt-text').value = cfgData.PENDING_PROMPT_TEXT || 'Hold...';
         document.getElementById('cfg-skip-late-release').checked = !!cfgData.SKIP_ON_LATE_RELEASE;
         document.getElementById('cfg-show-error-late-release').checked = cfgData.SHOW_ERROR_LATE_RELEASE !== false;
@@ -1438,6 +1487,7 @@ async function saveConfig() {
         PRACTICE_SEQUENCE: getPracticeSequence(),
         TUTORIAL_ENABLED: document.getElementById('cfg-tutorial-enabled').checked,
         NOGO_HOLD_DURATION: parseInt(document.getElementById('cfg-nogo-hold-duration').value) || 5000,
+        GO_RESPONSE_WINDOW: parseInt(document.getElementById('cfg-go-response-window').value) || 2500,
         PENDING_PROMPT_TEXT: document.getElementById('cfg-pending-prompt-text').value || 'Hold...',
         SKIP_ON_LATE_RELEASE: document.getElementById('cfg-skip-late-release').checked,
         SHOW_ERROR_LATE_RELEASE: document.getElementById('cfg-show-error-late-release').checked,
