@@ -6,6 +6,7 @@ const CONFIG = {
     showFeedback: true,
     showInstructionFeedback: true,
     tutorialEnabled: true,
+    practiceEnabled: true,
     nogoHoldDuration: 5000,
     goResponseWindow: 2500,
     pendingPromptText: 'Hold...',
@@ -129,6 +130,7 @@ async function loadConfig() {
         BLOCK_Y_FACTORS     = cfg.BLOCK_Y_FACTORS     ?? BLOCK_Y_FACTORS;
         PRACTICE_SEQUENCE   = cfg.PRACTICE_SEQUENCE   ?? PRACTICE_SEQUENCE;
         CONFIG.tutorialEnabled      = cfg.TUTORIAL_ENABLED ?? CONFIG.tutorialEnabled;
+        CONFIG.practiceEnabled      = cfg.PRACTICE_ENABLED ?? CONFIG.practiceEnabled;
         CONFIG.nogoHoldDuration     = cfg.NOGO_HOLD_DURATION ?? CONFIG.nogoHoldDuration;
         CONFIG.goResponseWindow     = cfg.GO_RESPONSE_WINDOW ?? CONFIG.goResponseWindow;
         CONFIG.pendingPromptText    = cfg.PENDING_PROMPT_TEXT ?? CONFIG.pendingPromptText;
@@ -332,11 +334,14 @@ function showStaticInstructions() {
     document.querySelectorAll('.phase-container').forEach(el => el.classList.remove('active'));
     els.instructionContainer.classList.add('active');
 
+    // ADD THIS TO DETERMINE ROUTING
+    const nextPhase = CONFIG.practiceEnabled ? 'practice-intro' : 'real-intro';
+
     const s = INSTRUCTION_TEXTS.static;
     els.instructionContent.innerHTML = `
         <h2 class="text-3xl font-bold mb-6">${s.title}</h2>
         ${s.body}
-        <button onclick="showMenuPhase('practice-intro')"
+        <button onclick="showMenuPhase('${nextPhase}')"
             class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-lg text-xl transition-colors shadow-lg">
             ${s.buttonText}
         </button>
@@ -345,7 +350,11 @@ function showStaticInstructions() {
 
 function skipTutorial() {
     STATE.isInTutorial = false;
-    showMenuPhase('practice-intro');
+    if (CONFIG.practiceEnabled) {
+        showMenuPhase('practice-intro');
+    } else {
+        showMenuPhase('real-intro');
+    }
 }
 
 
@@ -392,11 +401,16 @@ function showInstructionStep() {
 function nextInstructionStep() {
     STATE.tutorialStepIndex++;
 
-
     if (STATE.tutorialStepIndex >= INSTRUCTION_STEPS.length) {
         STATE.isInTutorial = false;
         els.tutorialUi.classList.add('hidden');
-        showMenuPhase('practice-intro');
+        
+        // ADD THIS CHECK
+        if (CONFIG.practiceEnabled) {
+            showMenuPhase('practice-intro');
+        } else {
+            showMenuPhase('real-intro');
+        }
     } else {
         showInstructionStep();
     }

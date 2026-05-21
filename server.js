@@ -72,6 +72,7 @@ const DEFAULT_CONFIG = {
         { type: 'nogo', delay: 3000, goPromptDelay: 2000, xFactor: 0.5,  yFactor: -0.5 }
     ],
     TUTORIAL_ENABLED: true,
+    PRACTICE_ENABLED: true,
     NOGO_HOLD_DURATION: 5000,
     GO_RESPONSE_WINDOW: 2500,
     PENDING_PROMPT_TEXT: 'Hold...',
