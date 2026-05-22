@@ -47,8 +47,10 @@ const DEFAULT_CONFIG = {
     GO_PER_BLOCK: 15,
     NOGO_PER_BLOCK: 5,
     BLOCK_TRIAL_TYPES: [
-        'go','go','nogo','go','go','go','nogo','go','go','go',
-        'nogo','go','go','nogo','go','go','go','nogo','go','go'
+        'go','go','go','nogo',
+        'go','go','go','nogo','nogo',
+        'go','go','go','go','nogo',
+        'go','go','go','nogo','go','go'
     ],
     BLOCK_STIM_DELAYS: [
         2000,3000,2500,1500,3000,2000,2500,1500,3000,2000,
@@ -67,15 +69,17 @@ const DEFAULT_CONFIG = {
         -0.3,0.3,-0.5,0.5,-0.7,0.7,-0.1,0.1,-0.4,0.4
     ],
     PRACTICE_SEQUENCE: [
-        { type: 'go',   delay: 3000, goPromptDelay: 2000, xFactor: 0,    yFactor: 0    },
-        { type: 'go',   delay: 3000, goPromptDelay: 2500, xFactor: -0.5, yFactor: 0.5  },
-        { type: 'nogo', delay: 3000, goPromptDelay: 2000, xFactor: 0.5,  yFactor: -0.5 }
+        { type: 'go',   delay: 3000, goPromptDelay: 1000, xFactor: 0, yFactor: 0 },
+        { type: 'go',   delay: 3000, goPromptDelay: 1000, xFactor: 0, yFactor: 0  },
+        { type: 'nogo', delay: 3000, goPromptDelay: 1000, xFactor: 0, yFactor: 0 }
     ],
     TUTORIAL_ENABLED: true,
     PRACTICE_ENABLED: true,
     NOGO_HOLD_DURATION: 5000,
-    GO_RESPONSE_WINDOW: 2500,
-    PENDING_PROMPT_TEXT: 'Hold...',
+    GO_RESPONSE_WINDOW: 1000,
+    PRESS_HOLD_TEXT: 'Press & Hold',
+    PENDING_PROMPT_TEXT: ' ',
+    ANIMATION_SPEED: 1.0,
     SKIP_ON_LATE_RELEASE: false,
     SKIP_ON_FAILED_INHIBITION: false,
     SHOW_ERROR_LATE_RELEASE: true,
@@ -83,32 +87,34 @@ const DEFAULT_CONFIG = {
     MULTITOUCH_ENABLED: false,
     MULTITOUCH_MESSAGE: 'Please use only one finger on the screen.',
     GO_PROMPT_TEXT: 'LIFT',
-    GO_RECONTACT_PROMPT_TEXT: 'HOLD',
+    GO_RECONTACT_PROMPT_TEXT: 'Press & Hold',
     NOGO_PROMPT_TEXT: 'HOLD',
+    TUTORIAL_GO_TRIAL_COUNT: 2,
+    TUTORIAL_NOGO_TRIAL_COUNT: 2,
     INSTRUCTION_TEXTS: {
         overview: {
-            title: 'How This Task Works',
-            message: 'You\'ll press and hold a blue circle on the screen. You\'ll need to lift your finger when you see <strong>&quot;LIFT&quot;</strong> — then wait for a prompt before pressing again. You\'ll need to keep holding when you see <strong>&quot;HOLD&quot;</strong>.',
-            buttonText: 'Got it, let\'s start!'
+            title: 'Welcome',
+            message: 'In this task you\'ll press and hold a blue button on the screen. Different prompts will appear above the button. Sometimes you\'ll need to quickly lift your finger off the button. Other times you\'ll need to keep holding the button. The next pages will walk you through each type of trial step by step.',
+            buttonText: 'Continue'
         },
         go: {
-            title: 'Learning LIFT Trials',
-            message: 'You\'ll see a blue circle on the screen. When the word <strong>&quot;LIFT&quot;</strong> appears above the circle, lift your finger off the button as quickly as possible. Then wait — a prompt will appear saying &quot;HOLD&quot;. Press the circle again as fast as you can only when you see that prompt.',
-            buttonText: 'Ready to try it!'
+            title: 'LIFT Trials',
+            message: 'You\'ll see a blue button on the screen. When you see <strong>&quot;LIFT&quot;</strong>, lift your index finger off the button as quickly as you can. Another prompt will then appear telling you to press the button again. Press and hold it down as quickly as possible.',
+            buttonText: 'I Understand'
         },
         noGo: {
-            title: 'Learning HOLD Trials',
-            message: 'Great job! Now when you see <strong>&quot;HOLD&quot;</strong> appear above the circle, keep holding the circle. Do NOT lift your finger.',
-            buttonText: 'Ready to try it!'
+            title: 'HOLD Trials',
+            message: 'You\'ll see a blue button on the screen. When you see <strong>&quot;HOLD&quot;</strong>, keep holding the button with your index finger. Do NOT lift your finger. If you accidentally lift your finger: Hold it back on the circle as fast as you can to correct it.',
+            buttonText: 'I Understand'
         },
         complete: {
-            title: 'Tutorial Complete!',
-            message: 'Excellent work! You now understand both <strong>LIFT</strong> and <strong>HOLD</strong> trials.<br>Ready to start practicing?',
-            buttonText: 'Start Practice'
+            title: 'You\'re Ready',
+            message: 'Great work! You now know both <strong>LIFT</strong> and <strong>HOLD</strong> trials. The main task starts next.',
+            buttonText: 'Start Main Task'
         },
         static: {
             title: 'How This Task Works',
-            body: '<p class="text-lg mb-4">You\'ll press and hold a blue circle on the screen.</p><p class="text-lg mb-4">When <strong>&quot;LIFT&quot;</strong> appears, lift your finger off the button as quickly as possible. Then wait for a prompt before pressing the circle again.</p><p class="text-lg mb-4">When <strong>&quot;HOLD&quot;</strong> appears, keep holding the circle. Do NOT lift your finger.</p><p class="text-lg mb-8">React as fast as you can while following the correct instruction.</p>',
+            body: '<p class="text-lg mb-4">You\'ll press and hold a blue button on the screen.</p><p class="text-lg mb-4">When <strong>&quot;LIFT&quot;</strong> appears, lift your finger off the button as quickly as possible. Then wait for a prompt before pressing the circle again.</p><p class="text-lg mb-4">When <strong>&quot;HOLD&quot;</strong> appears, keep holding the circle. Do NOT lift your finger.</p><p class="text-lg mb-8">React as fast as you can while following the correct instruction.</p>',
             buttonText: 'Got it!'
         }
     }

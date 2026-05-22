@@ -8,8 +8,9 @@ const CONFIG = {
     tutorialEnabled: true,
     practiceEnabled: true,
     nogoHoldDuration: 5000,
-    goResponseWindow: 2500,
-    pendingPromptText: 'Hold...',
+    goResponseWindow: 1000,
+    pressHoldText: 'Press & Hold',
+    pendingPromptText: ' ',
     skipOnLateRelease: false,
     skipOnFailedInhibition: false,
     showErrorLateRelease: true,
@@ -17,8 +18,11 @@ const CONFIG = {
     multitouchEnabled: false,
     multitouchMessage: 'Please use only one finger on the screen.',
     goPromptText: 'LIFT',
-    goRecontactPromptText: 'HOLD',
+    goRecontactPromptText: 'Press & Hold',
     nogoPromptText: 'HOLD',
+    tutorialGoTrialCount: 2,
+    tutorialNogoTrialCount: 2,
+    animationSpeed: 1.0,
 };
 
 
@@ -42,11 +46,11 @@ let TRIALS_PER_BLOCK = GO_PER_BLOCK + NOGO_PER_BLOCK; // derived — do not edit
 
 // Trial types: must contain GO_PER_BLOCK 'go' and NOGO_PER_BLOCK 'nogo' entries.
 let BLOCK_TRIAL_TYPES = [
-    'go',   'go',   'nogo', 'go',   'go',
-    'go',   'nogo', 'go',   'go',   'go',
-    'nogo', 'go',   'go',   'nogo', 'go',
-    'go',   'go',   'nogo', 'go',   'go'
-];
+        'go','go','go','nogo',
+        'go','go','go','nogo','nogo',
+        'go','go','go','go','nogo',
+        'go','go','go','nogo','go','go'
+    ];
 
 // Holding delay (ms) from button press to stimulus appearance — range 2 000–6 000 ms.
 let BLOCK_STIM_DELAYS = [
@@ -85,9 +89,9 @@ let BLOCK_Y_FACTORS = [
 //                 EDIT TRIAL SEQUENCES HERE
 // =========================================================
 let PRACTICE_SEQUENCE = [
-    { type: 'go',   delay: 3000, goPromptDelay: 2000, xFactor: 0,    yFactor: 0    },
-    { type: 'go',   delay: 3000, goPromptDelay: 2500, xFactor: -0.5, yFactor: 0.5  },
-    { type: 'nogo', delay: 3000, goPromptDelay: 2000, xFactor: 0.5,  yFactor: -0.5 },
+    { type: 'go',   delay: 3000, goPromptDelay: 1000, xFactor: 0,    yFactor: 0    },
+    { type: 'go',   delay: 3000, goPromptDelay: 100, xFactor: 0, yFactor: 0  },
+    { type: 'nogo', delay: 3000, goPromptDelay: 1000, xFactor: 0,  yFactor: 0 },
 ];
 
 // Real sequence is generated from block config above. Do not edit directly.
@@ -143,6 +147,10 @@ async function loadConfig() {
         CONFIG.goPromptText         = cfg.GO_PROMPT_TEXT ?? CONFIG.goPromptText;
         CONFIG.goRecontactPromptText = cfg.GO_RECONTACT_PROMPT_TEXT ?? CONFIG.goRecontactPromptText;
         CONFIG.nogoPromptText       = cfg.NOGO_PROMPT_TEXT ?? CONFIG.nogoPromptText;
+        CONFIG.tutorialGoTrialCount = cfg.TUTORIAL_GO_TRIAL_COUNT ?? CONFIG.tutorialGoTrialCount;
+        CONFIG.tutorialNogoTrialCount = cfg.TUTORIAL_NOGO_TRIAL_COUNT ?? CONFIG.tutorialNogoTrialCount;
+        CONFIG.pressHoldText   = cfg.PRESS_HOLD_TEXT   ?? CONFIG.pressHoldText;
+        CONFIG.animationSpeed  = cfg.ANIMATION_SPEED   ?? CONFIG.animationSpeed;
         if (cfg.INSTRUCTION_TEXTS) {
             INSTRUCTION_TEXTS = Object.assign({}, INSTRUCTION_STEP_DEFAULTS, cfg.INSTRUCTION_TEXTS);
         }
@@ -157,29 +165,29 @@ async function loadConfig() {
 // ================= INTERACTIVE INSTRUCTION SEQUENCE =================
 // Text content is configurable via admin. Call buildInstructionSteps() after loadConfig().
 const INSTRUCTION_STEP_DEFAULTS = {
-    overview: {
-        title: 'How This Task Works',
-        message: 'You\'ll press and hold a blue circle on the screen. You\'ll need to lift your finger when you see <strong>"LIFT"</strong> — then wait for a prompt before pressing again. You\'ll need to keep holding when you see <strong>"HOLD"</strong>.',
-        buttonText: 'Got it, let\'s start!'
+overview: {
+        title: 'Welcome',
+        message: 'In this task you\'ll press and hold a blue button on the screen. Different prompts will appear above the button. Sometimes you\'ll need to quickly lift your finger off the button. Other times you\'ll need to keep holding the button. The next pages will walk you through each type of trial step by step.',
+        buttonText: 'Continue'
     },
     go: {
-        title: 'Learning LIFT Trials',
-        message: 'You\'ll see a blue circle on the screen. When the word <strong>"LIFT"</strong> appears above the circle, lift your finger off the button as quickly as possible. Then wait — a prompt will appear saying "HOLD". Press the circle again as fast as you can only when you see that prompt.',
-        buttonText: 'Ready to try it!'
+        title: 'LIFT Trials',
+        message: 'You\'ll see a blue button on the screen. When you see <strong>&quot;LIFT&quot;</strong>, lift your index finger off the button as quickly as you can. Another prompt will then appear telling you to press the button again. Press and hold it down as quickly as possible.',
+        buttonText: 'I Understand'
     },
     noGo: {
-        title: 'Learning HOLD Trials',
-        message: 'Great job! Now when you see <strong>"HOLD"</strong> appear above the circle, keep holding the circle. Do NOT lift your finger.',
-        buttonText: 'Ready to try it!'
+        title: 'HOLD Trials',
+        message: 'You\'ll see a blue button on the screen. When you see <strong>&quot;HOLD&quot;</strong>, keep holding the button with your index finger. Do NOT lift your finger. If you accidentally lift your finger: Hold it back on the circle as fast as you can to correct it.',
+        buttonText: 'I Understand'
     },
     complete: {
-        title: 'Tutorial Complete!',
-        message: 'Excellent work! You now understand both <strong>LIFT</strong> and <strong>HOLD</strong> trials.<br>Ready to start practicing?',
-        buttonText: 'Start Practice'
+        title: 'You\'re Ready',
+        message: 'Great work! You now know both <strong>LIFT</strong> and <strong>HOLD</strong> trials. The main task starts next.',
+        buttonText: 'Start Main Task'
     },
     static: {
         title: 'How This Task Works',
-        body: '<p class="text-lg mb-4">You\'ll press and hold a blue circle on the screen.</p><p class="text-lg mb-4">When <strong>"LIFT"</strong> appears, lift your finger off the button as quickly as possible. Then wait for a prompt before pressing the circle again.</p><p class="text-lg mb-4">When <strong>"HOLD"</strong> appears, keep holding the circle. Do NOT lift your finger.</p><p class="text-lg mb-8">React as fast as you can while following the correct instruction.</p>',
+        body: '<p class="text-lg mb-4">You\'ll press and hold a blue button on the screen.</p><p class="text-lg mb-4">When <strong>&quot;LIFT&quot;</strong> appears, lift your finger off the button as quickly as possible. Then wait for a prompt before pressing the circle again.</p><p class="text-lg mb-4">When <strong>&quot;HOLD&quot;</strong> appears, keep holding the circle. Do NOT lift your finger.</p><p class="text-lg mb-8">React as fast as you can while following the correct instruction.</p>',
         buttonText: 'Got it!'
     }
 };
@@ -191,60 +199,69 @@ buildInstructionSteps(); // populated immediately from defaults; rebuilt after l
 
 function buildInstructionSteps() {
     const t = INSTRUCTION_TEXTS;
-    INSTRUCTION_STEPS = [
-        {
-            id: 'task-overview',
-            type: 'text',
-            title: t.overview.title,
-            message: t.overview.message,
-            buttonText: t.overview.buttonText
-        },
-        {
-            id: 'go-explanation',
-            type: 'text',
-            title: t.go.title,
-            message: t.go.message,
-            buttonText: t.go.buttonText
-        },
-        {
-            id: 'go-release-1',
+    const goCount = Math.max(1, CONFIG.tutorialGoTrialCount || 2);
+    const nogoCount = Math.max(1, CONFIG.tutorialNogoTrialCount || 2);
+    const steps = [];
+
+    // Overview slide
+    steps.push({
+        id: 'task-overview',
+        type: 'text',
+        title: t.overview.title,
+        message: t.overview.message,
+        buttonText: t.overview.buttonText
+    });
+
+    // LIFT block: demo, then N practice trials
+    steps.push({
+        id: 'go-demo',
+        type: 'demo',
+        trialType: 'go',
+        title: t.go.title,
+        message: t.go.message,
+        buttonText: t.go.buttonText || 'I Understand'
+    });
+    for (let i = 0; i < goCount; i++) {
+        steps.push({
+            id: `go-trial-${i + 1}`,
             type: 'tutorial',
             trialType: 'go',
-            delay: 4000
-        },
-        {
-            id: 'go-release-2',
-            type: 'tutorial',
-            trialType: 'go',
-            delay: 5000
-        },
-        {
-            id: 'nogo-explanation',
-            type: 'text',
-            title: t.noGo.title,
-            message: t.noGo.message,
-            buttonText: t.noGo.buttonText
-        },
-        {
-            id: 'nogo-1',
-            type: 'tutorial',
-            trialType: 'nogo',
-            delay: 4000
-        },
-        {
-            id: 'nogo-2',
+            delay: 4000 + (i * 1000),
+            trialNumber: i + 1,
+            totalTrials: goCount
+        });
+    }
+
+    // HOLD block: demo, then N practice trials
+    steps.push({
+        id: 'nogo-demo',
+        type: 'demo',
+        trialType: 'nogo',
+        title: t.noGo.title,
+        message: t.noGo.message,
+        buttonText: t.noGo.buttonText || 'I Understand'
+    });
+    for (let i = 0; i < nogoCount; i++) {
+        steps.push({
+            id: `nogo-trial-${i + 1}`,
             type: 'tutorial',
             trialType: 'nogo',
-            delay: 5000
-        },
-        {
-            id: 'complete',
-            type: 'text',
-            title: t.complete.title,
-            message: t.complete.message,
-            buttonText: t.complete.buttonText
-        }
-    ];
+            delay: 4000 + (i * 1000),
+            trialNumber: i + 1,
+            totalTrials: nogoCount
+        });
+    }
+
+    // Completion slide
+    steps.push({
+        id: 'complete',
+        type: 'text',
+        title: t.complete.title,
+        message: t.complete.message,
+        buttonText: t.complete.buttonText
+    });
+
+    INSTRUCTION_STEPS = steps;
 }
 
 
@@ -334,7 +351,6 @@ function showStaticInstructions() {
     document.querySelectorAll('.phase-container').forEach(el => el.classList.remove('active'));
     els.instructionContainer.classList.add('active');
 
-    // ADD THIS TO DETERMINE ROUTING
     const nextPhase = CONFIG.practiceEnabled ? 'practice-intro' : 'real-intro';
 
     const s = INSTRUCTION_TEXTS.static;
@@ -350,11 +366,7 @@ function showStaticInstructions() {
 
 function skipTutorial() {
     STATE.isInTutorial = false;
-    if (CONFIG.practiceEnabled) {
-        showMenuPhase('practice-intro');
-    } else {
-        showMenuPhase('real-intro');
-    }
+    showMenuPhase('real-intro');
 }
 
 
@@ -377,6 +389,12 @@ function showInstructionStep() {
                 ${step.buttonText}
             </button>
         `;
+    } else if (step.type === 'demo') {
+        els.menuOverlay.classList.remove('hidden');
+        els.tutorialUi.classList.add('hidden');
+        document.querySelectorAll('.phase-container').forEach(el => el.classList.remove('active'));
+        els.instructionContainer.classList.add('active');
+        renderDemoStep(step);
     } else if (step.type === 'tutorial') {
         els.menuOverlay.classList.add('hidden');
         els.tutorialUi.classList.remove('hidden');
@@ -394,23 +412,105 @@ function showInstructionStep() {
         updateTutorialButtonPosition(0, 0);
         setupTutorialTrial(step);
         updateTutorialUI();
+        showNowYouTryBanner(step);
     }
+}
+
+
+// Render a "See this" demo step with animation and "I Understand" button.
+function renderDemoStep(step) {
+    const isGo = step.trialType === 'go';
+    const pressHold = escapeHTML(CONFIG.pressHoldText || 'Press & Hold');
+    let widgetHTML;
+    if (isGo) {
+        widgetHTML = `
+            <div class="demo-widget demo-lift" aria-hidden="true">
+                <div class="demo-prompt prompt-0">${pressHold}</div>
+                <div class="demo-prompt prompt-1">${escapeHTML(CONFIG.goPromptText)}</div>
+                <div class="demo-circle"></div>
+                <div class="demo-finger"><img src="finger.png" alt=""></div>
+            </div>
+        `;
+    } else {
+        widgetHTML = `
+            <div class="demo-widget demo-hold" aria-hidden="true">
+                <div class="demo-prompt prompt-0">${pressHold}</div>
+                <div class="demo-prompt prompt-1">${escapeHTML(CONFIG.nogoPromptText)}</div>
+                <div class="demo-circle"></div>
+                <div class="demo-finger"><img src="finger.png" alt=""></div>
+                <div class="demo-checkmark">✓</div>
+            </div>
+        `;
+    }
+
+    els.instructionContent.innerHTML = `
+        <h2 class="text-3xl font-bold mb-3">${step.title}</h2>
+        <p class="text-lg mb-2">${step.message}</p>
+        <div class="demo-do-label">Watch the example below</div>
+        ${widgetHTML}
+        <button onclick="nextInstructionStep()"
+            class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-lg text-xl transition-colors shadow-lg mt-4">
+            ${step.buttonText}
+        </button>
+    `;
+
+    // Apply animation speed multiplier to all animated elements
+    const speed = CONFIG.animationSpeed || 1.0;
+    const liftDur = (9 * speed) + 's';
+    const holdDur = (7.5 * speed) + 's';
+    const dur = isGo ? liftDur : holdDur;
+    const widget = els.instructionContent.querySelector('.demo-widget');
+    if (widget) {
+        widget.querySelectorAll('.demo-finger, .demo-prompt, .demo-circle, .demo-checkmark').forEach(el => {
+            el.style.animationDuration = dur;
+        });
+    }
+}
+
+
+// Show a brief "Now you try" message before each tutorial trial.
+function showNowYouTryBanner(step) {
+    // Find or create the banner overlay element
+    let banner = document.getElementById('now-you-try-banner');
+    if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'now-you-try-banner';
+        banner.className = 'now-you-try-banner';
+        els.tutorialUi.appendChild(banner);
+    }
+    const isGo = step.trialType === 'go';
+    const action = isGo ? `lift your finger when you see "${CONFIG.goPromptText}"` : `keep holding when you see "${CONFIG.nogoPromptText}"`;
+    const counter = step.totalTrials > 1 ? ` (${step.trialNumber} of ${step.totalTrials})` : '';
+    banner.innerHTML = `
+        <div class="now-you-try-title">Now you try${counter}</div>
+        <div class="now-you-try-text">Press and hold the circle, then ${action}.</div>
+    `;
+    banner.classList.add('visible');
+}
+
+
+function hideNowYouTryBanner() {
+    const banner = document.getElementById('now-you-try-banner');
+    if (banner) banner.classList.remove('visible');
+}
+
+
+function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
 }
 
 
 function nextInstructionStep() {
     STATE.tutorialStepIndex++;
+    hideNowYouTryBanner();
+
 
     if (STATE.tutorialStepIndex >= INSTRUCTION_STEPS.length) {
         STATE.isInTutorial = false;
         els.tutorialUi.classList.add('hidden');
-        
-        // ADD THIS CHECK
-        if (CONFIG.practiceEnabled) {
-            showMenuPhase('practice-intro');
-        } else {
-            showMenuPhase('real-intro');
-        }
+        showMenuPhase(CONFIG.practiceEnabled ? 'practice-intro' : 'real-intro');
     } else {
         showInstructionStep();
     }
@@ -447,11 +547,11 @@ function setupTutorialTrial(step) {
     newButton.addEventListener('touchstart', start, { passive: false });
     newButton.addEventListener('mouseup', end);
     newButton.addEventListener('touchend', end, { passive: false });
-    btn.addEventListener('touchcancel', (e) => {
-    STATE.isPressingButton = false;
-    handlePressEnd();
+    newButton.addEventListener('touchcancel', (e) => {
+        STATE.isPressed = false;
+        handleTutorialPressEnd(step);
     });
-    newButton.addEventListener('mouseleave', () => { STATE.isPressingButton = false; if (STATE.isHolding) end(); });
+    newButton.addEventListener('mouseleave', () => { STATE.isPressed = false; if (STATE.isHolding) end(); });
 }
 
 
@@ -493,6 +593,7 @@ function handleTutorialPressStart(step) {
                         }
                         STATE.tutorialTrialComplete = true;
                         els.tutorialContinueContainer.classList.remove('hidden');
+                        hideNowYouTryBanner();
                     } else {
                         showTutorialRetry("You lifted your finger! Remember: HOLD means keep holding.");
                     }
@@ -513,6 +614,7 @@ function handleTutorialPressStart(step) {
 
         clearTimeout(goTimeout);
         els.tutorialContinueContainer.classList.remove('hidden');
+        hideNowYouTryBanner();
     }
 }
 
@@ -561,7 +663,7 @@ function updateTutorialUI() {
 
 
     if (trialState === 'waiting') {
-        text = 'Press & Hold';
+        text = CONFIG.pressHoldText || 'Press & Hold';
         color = '#000000'; // BLACK
     } else if (trialState === 'holding') {
         text = CONFIG.pendingPromptText;
@@ -1452,7 +1554,7 @@ function updateUI() {
 
 
     if (trialState === 'waiting') {
-        text = 'Press & Hold';
+        text = CONFIG.pressHoldText || 'Press & Hold';
         color = '#000000'; // BLACK
     } else if (trialState === 'holding') {
         text = CONFIG.pendingPromptText;

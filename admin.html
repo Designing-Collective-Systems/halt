@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HALT Admin</title>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
             --bg: #f7f7f5;
@@ -45,9 +36,7 @@
         }
 
         /* ── Admin Panel ── */
-        #admin-panel {
-            min-height: 100vh;
-        }
+        #admin-panel { min-height: 100vh; }
 
         .admin-header {
             background: var(--surface);
@@ -70,16 +59,9 @@
             white-space: nowrap;
         }
 
-        .admin-logo span {
-            color: var(--text-muted);
-            font-weight: 400;
-        }
+        .admin-logo span { color: var(--text-muted); font-weight: 400; }
 
-        .tab-nav {
-            display: flex;
-            gap: 0;
-            flex: 1;
-        }
+        .tab-nav { display: flex; gap: 0; flex: 1; }
 
         .tab-btn {
             padding: 0 18px;
@@ -95,14 +77,8 @@
             transition: color 0.12s, border-color 0.12s;
         }
 
-        .tab-btn:hover {
-            color: var(--text);
-        }
-
-        .tab-btn.active {
-            color: var(--text);
-            border-bottom-color: var(--accent);
-        }
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
 
         .logout-btn {
             padding: 7px 14px;
@@ -116,19 +92,11 @@
             transition: border-color 0.12s, color 0.12s;
         }
 
-        .logout-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+        .logout-btn:hover { border-color: var(--accent); color: var(--accent); }
 
         /* ── Tab Content ── */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         .tab-body {
             max-width: 860px;
@@ -137,9 +105,7 @@
         }
 
         /* ── Section ── */
-        .section {
-            margin-bottom: 36px;
-        }
+        .section { margin-bottom: 36px; }
 
         .section-label {
             font-size: 11px;
@@ -167,7 +133,7 @@
             gap: 16px;
         }
 
-        .form-field {}
+        .form-field { }
 
         .form-field label {
             display: block;
@@ -194,15 +160,8 @@
             transition: border-color 0.12s;
         }
 
-        .form-field input:focus {
-            border-color: var(--accent);
-            background: var(--surface);
-        }
-
-        .form-field input[readonly] {
-            opacity: 0.5;
-            cursor: default;
-        }
+        .form-field input:focus { border-color: var(--accent); background: var(--surface); }
+        .form-field input[readonly] { opacity: 0.5; cursor: default; }
 
         .form-field .hint {
             font-size: 11px;
@@ -226,10 +185,7 @@
             line-height: 1.6;
         }
 
-        textarea.array-input:focus {
-            border-color: var(--accent);
-            background: var(--surface);
-        }
+        textarea.array-input:focus { border-color: var(--accent); background: var(--surface); }
 
         /* ── Trial Type Grid ── */
         .trial-grid {
@@ -266,9 +222,7 @@
             color: var(--nogo);
         }
 
-        .trial-cell:hover {
-            filter: brightness(0.94);
-        }
+        .trial-cell:hover { filter: brightness(0.94); }
 
         .trial-grid-label {
             font-size: 12px;
@@ -282,19 +236,9 @@
             margin-top: 10px;
         }
 
-        .trial-counts .go-count {
-            color: var(--go);
-            font-weight: 600;
-        }
-
-        .trial-counts .nogo-count {
-            color: var(--nogo);
-            font-weight: 600;
-        }
-
-        .trial-counts .error {
-            color: var(--nogo);
-        }
+        .trial-counts .go-count { color: var(--go); font-weight: 600; }
+        .trial-counts .nogo-count { color: var(--nogo); font-weight: 600; }
+        .trial-counts .error { color: var(--nogo); }
 
         /* ── Practice Sequence Table ── */
         .practice-table {
@@ -315,14 +259,8 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .practice-table td {
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .practice-table tr:last-child td {
-            border-bottom: none;
-        }
+        .practice-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+        .practice-table tr:last-child td { border-bottom: none; }
 
         .practice-table select,
         .practice-table input[type="number"] {
@@ -336,9 +274,7 @@
         }
 
         .practice-table select:focus,
-        .practice-table input:focus {
-            border-color: var(--accent);
-        }
+        .practice-table input:focus { border-color: var(--accent); }
 
         .btn-add-row {
             margin-top: 10px;
@@ -352,10 +288,7 @@
             cursor: pointer;
         }
 
-        .btn-add-row:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+        .btn-add-row:hover { border-color: var(--accent); color: var(--accent); }
 
         .btn-remove-row {
             padding: 3px 8px;
@@ -366,9 +299,7 @@
             font-size: 14px;
         }
 
-        .btn-remove-row:hover {
-            color: var(--nogo);
-        }
+        .btn-remove-row:hover { color: var(--nogo); }
 
         /* ── Save / action buttons ── */
         .action-row {
@@ -391,14 +322,8 @@
             transition: opacity 0.12s;
         }
 
-        .btn-save:hover {
-            opacity: 0.85;
-        }
-
-        .btn-save:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
+        .btn-save:hover { opacity: 0.85; }
+        .btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
 
         .save-status {
             font-size: 13px;
@@ -406,13 +331,8 @@
             transition: color 0.2s;
         }
 
-        .save-status.ok {
-            color: var(--go);
-        }
-
-        .save-status.err {
-            color: var(--nogo);
-        }
+        .save-status.ok { color: var(--go); }
+        .save-status.err { color: var(--nogo); }
 
         /* ── Validation error ── */
         .validation-error {
@@ -432,9 +352,7 @@
             padding: 32px 24px 64px;
         }
 
-        .participant-table-wrap {
-            overflow-x: auto;
-        }
+        .participant-table-wrap { overflow-x: auto; }
 
         table.ptable {
             width: 100%;
@@ -463,18 +381,9 @@
             white-space: nowrap;
         }
 
-        table.ptable tbody tr:hover td {
-            background: #f0f0ee;
-            cursor: pointer;
-        }
-
-        table.ptable tbody tr.selected td {
-            background: #e8e8e5;
-        }
-
-        table.ptable tbody tr:last-child td {
-            border-bottom: none;
-        }
+        table.ptable tbody tr:hover td { background: #f0f0ee; cursor: pointer; }
+        table.ptable tbody tr.selected td { background: #e8e8e5; }
+        table.ptable tbody tr:last-child td { border-bottom: none; }
 
         .view-btn {
             padding: 4px 12px;
@@ -487,16 +396,10 @@
             cursor: pointer;
         }
 
-        .view-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+        .view-btn:hover { border-color: var(--accent); color: var(--accent); }
 
         /* ── Participant Dashboard ── */
-        #participant-dashboard {
-            display: none;
-            margin-top: 32px;
-        }
+        #participant-dashboard { display: none; margin-top: 32px; }
 
         .dash-header {
             display: flex;
@@ -514,10 +417,7 @@
             font-weight: 600;
         }
 
-        .dash-pid span {
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
+        .dash-pid span { color: var(--text-secondary); font-weight: 400; }
 
         .phase-toggle {
             display: inline-flex;
@@ -539,14 +439,8 @@
             transition: background 0.1s, color 0.1s;
         }
 
-        .phase-toggle button:last-child {
-            border-right: none;
-        }
-
-        .phase-toggle button.active {
-            background: var(--accent);
-            color: #fff;
-        }
+        .phase-toggle button:last-child { border-right: none; }
+        .phase-toggle button.active { background: var(--accent); color: #fff; }
 
         .stat-grid {
             display: grid;
@@ -559,10 +453,7 @@
             margin-bottom: 12px;
         }
 
-        .stat-cell {
-            background: var(--surface);
-            padding: 14px 18px;
-        }
+        .stat-cell { background: var(--surface); padding: 14px 18px; }
 
         .stat-value {
             font-family: var(--mono);
@@ -573,30 +464,11 @@
             line-height: 1.2;
         }
 
-        .stat-label {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-top: 3px;
-        }
-
-        .stat-hint {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .stat-value.go {
-            color: var(--go);
-        }
-
-        .stat-value.nogo {
-            color: var(--nogo);
-        }
-
-        .stat-value.warn {
-            color: var(--warning);
-        }
+        .stat-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); margin-top: 3px; }
+        .stat-hint { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .stat-value.go { color: var(--go); }
+        .stat-value.nogo { color: var(--nogo); }
+        .stat-value.warn { color: var(--warning); }
 
         .chart-grid {
             display: grid;
@@ -604,11 +476,7 @@
             gap: 12px;
         }
 
-        @media (max-width: 680px) {
-            .chart-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 680px) { .chart-grid { grid-template-columns: 1fr; } }
 
         .chart-card {
             background: var(--surface);
@@ -617,9 +485,7 @@
             overflow: hidden;
         }
 
-        .chart-card+.chart-card {
-            margin-top: 0;
-        }
+        .chart-card + .chart-card { margin-top: 0; }
 
         .chart-header {
             padding: 14px 18px 10px;
@@ -629,19 +495,9 @@
             gap: 8px;
         }
 
-        .chart-title {
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .chart-subtitle {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .chart-body {
-            padding: 4px;
-        }
+        .chart-title { font-size: 13px; font-weight: 600; }
+        .chart-subtitle { font-size: 12px; color: var(--text-muted); }
+        .chart-body { padding: 4px; }
 
         .chart-full {
             background: var(--surface);
@@ -661,9 +517,7 @@
         }
 
         /* ── Data table ── */
-        .table-wrap {
-            overflow-x: auto;
-        }
+        .table-wrap { overflow-x: auto; }
 
         table.dtable {
             width: 100%;
@@ -692,13 +546,8 @@
             white-space: nowrap;
         }
 
-        table.dtable tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        table.dtable tbody tr:hover td {
-            background: var(--bg);
-        }
+        table.dtable tbody tr:last-child td { border-bottom: none; }
+        table.dtable tbody tr:hover td { background: var(--bg); }
 
         .tag {
             display: inline-block;
@@ -709,42 +558,16 @@
             font-family: 'DM Sans', sans-serif;
         }
 
-        .tag-go {
-            background: #dcfce7;
-            color: var(--go);
-        }
-
-        .tag-nogo {
-            background: #fee2e2;
-            color: var(--nogo);
-        }
-
-        .tag-yes {
-            background: #dcfce7;
-            color: var(--go);
-        }
-
-        .tag-no {
-            background: #fee2e2;
-            color: var(--nogo);
-        }
-
-        .tag-slip {
-            background: #fef3c7;
-            color: var(--warning);
-        }
+        .tag-go   { background: #dcfce7; color: var(--go); }
+        .tag-nogo { background: #fee2e2; color: var(--nogo); }
+        .tag-yes  { background: #dcfce7; color: var(--go); }
+        .tag-no   { background: #fee2e2; color: var(--nogo); }
+        .tag-slip { background: #fef3c7; color: var(--warning); }
 
         /* ── Loading/empty states ── */
-        .loading-row td {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 32px !important;
-            font-family: 'DM Sans', sans-serif !important;
-        }
+        .loading-row td { text-align: center; color: var(--text-muted); padding: 32px !important; font-family: 'DM Sans', sans-serif !important; }
 
-        .plotly .modebar {
-            display: none !important;
-        }
+        .plotly .modebar { display: none !important; }
 
         /* ── Toggle Switch ── */
         .toggle-row {
@@ -754,23 +577,9 @@
             padding: 12px 0;
             border-bottom: 1px solid var(--border);
         }
-
-        .toggle-row:last-child {
-            border-bottom: none;
-        }
-
-        .toggle-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .toggle-hint {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
+        .toggle-row:last-child { border-bottom: none; }
+        .toggle-label { font-size: 13px; font-weight: 500; color: var(--text); }
+        .toggle-hint { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
         .toggle-switch {
             position: relative;
             width: 40px;
@@ -778,13 +587,7 @@
             flex-shrink: 0;
             margin-left: 16px;
         }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .toggle-slider {
             position: absolute;
             cursor: pointer;
@@ -793,7 +596,6 @@
             border-radius: 22px;
             transition: background 0.15s;
         }
-
         .toggle-slider::before {
             content: '';
             position: absolute;
@@ -805,18 +607,10 @@
             border-radius: 50%;
             transition: transform 0.15s;
         }
+        .toggle-switch input:checked + .toggle-slider { background: var(--accent); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(18px); }
 
-        .toggle-switch input:checked+.toggle-slider {
-            background: var(--accent);
-        }
-
-        .toggle-switch input:checked+.toggle-slider::before {
-            transform: translateX(18px);
-        }
-
-        .sub-toggle {
-            padding-left: 24px;
-        }
+        .sub-toggle { padding-left: 24px; }
 
         /* ── Instruction editor ── */
         .instr-block {
@@ -826,7 +620,6 @@
             padding: 18px 20px;
             margin-bottom: 12px;
         }
-
         .instr-block-title {
             font-size: 12px;
             font-weight: 600;
@@ -835,11 +628,7 @@
             color: var(--text-secondary);
             margin-bottom: 14px;
         }
-
-        .instr-field {
-            margin-bottom: 12px;
-        }
-
+        .instr-field { margin-bottom: 12px; }
         .instr-field label {
             display: block;
             font-size: 11px;
@@ -849,7 +638,6 @@
             color: var(--text-muted);
             margin-bottom: 5px;
         }
-
         .instr-field input[type="text"],
         .instr-field textarea {
             width: 100%;
@@ -865,19 +653,13 @@
             line-height: 1.6;
             resize: vertical;
         }
-
         .instr-field input[type="text"]:focus,
-        .instr-field textarea:focus {
-            border-color: var(--accent);
-            background: var(--surface);
-        }
-
+        .instr-field textarea:focus { border-color: var(--accent); background: var(--surface); }
         .instr-field .hint {
             font-size: 11px;
             color: var(--text-muted);
             margin-top: 4px;
         }
-
         .instr-preview {
             margin-top: 8px;
             padding: 10px 14px;
@@ -888,7 +670,6 @@
             background: var(--bg);
             min-height: 32px;
         }
-
         .instr-preview-label {
             font-size: 10px;
             font-weight: 600;
@@ -908,7 +689,6 @@
             background: var(--bg);
             z-index: 1000;
         }
-
         .auth-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -916,26 +696,20 @@
             padding: 40px 36px;
             width: 100%;
             max-width: 380px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
         }
-
         .auth-title {
             font-size: 22px;
             font-weight: 600;
             color: var(--text);
             margin-bottom: 6px;
         }
-
         .auth-subtitle {
             font-size: 13px;
             color: var(--text-muted);
             margin-bottom: 24px;
         }
-
-        .auth-field {
-            margin-bottom: 14px;
-        }
-
+        .auth-field { margin-bottom: 14px; }
         .auth-field label {
             display: block;
             font-size: 11px;
@@ -945,7 +719,6 @@
             color: var(--text-muted);
             margin-bottom: 6px;
         }
-
         .auth-field input {
             width: 100%;
             padding: 10px 12px;
@@ -957,12 +730,7 @@
             background: var(--bg);
             outline: none;
         }
-
-        .auth-field input:focus {
-            border-color: var(--accent);
-            background: var(--surface);
-        }
-
+        .auth-field input:focus { border-color: var(--accent); background: var(--surface); }
         .auth-btn {
             width: 100%;
             padding: 11px;
@@ -977,23 +745,14 @@
             margin-top: 6px;
             transition: opacity 0.12s;
         }
-
-        .auth-btn:hover {
-            opacity: 0.9;
-        }
-
-        .auth-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
+        .auth-btn:hover { opacity: 0.9; }
+        .auth-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .auth-error {
             font-size: 13px;
             color: #c1272d;
             margin-top: 10px;
             min-height: 18px;
         }
-
         .logout-btn {
             padding: 6px 14px;
             border: 1px solid var(--border-strong);
@@ -1005,11 +764,7 @@
             cursor: pointer;
             margin-left: 12px;
         }
-
-        .logout-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+        .logout-btn:hover { border-color: var(--accent); color: var(--accent); }
 
         /* ── Download buttons ── */
         .btn-download {
@@ -1023,891 +778,739 @@
             cursor: pointer;
             transition: border-color 0.12s, color 0.12s;
         }
-
-        .btn-download:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+        .btn-download:hover { border-color: var(--accent); color: var(--accent); }
     </style>
 </head>
-
 <body>
 
-    <!-- ═══ AUTH SCREEN ════════════════════════════════════════ -->
-    <div id="auth-screen">
-        <div class="auth-card">
-            <div class="auth-title" id="auth-title">Admin Login</div>
-            <div class="auth-subtitle" id="auth-subtitle">Enter your password to continue.</div>
+<!-- ═══ AUTH SCREEN ════════════════════════════════════════ -->
+<div id="auth-screen">
+    <div class="auth-card">
+        <div class="auth-title" id="auth-title">Admin Login</div>
+        <div class="auth-subtitle" id="auth-subtitle">Enter your password to continue.</div>
 
-            <div id="auth-confirm-field" class="auth-field" style="display:none;">
-                <label>Confirm Password</label>
-                <input type="password" id="auth-password-confirm" placeholder="Confirm password">
+        <div id="auth-confirm-field" class="auth-field" style="display:none;">
+            <label>Confirm Password</label>
+            <input type="password" id="auth-password-confirm" placeholder="Confirm password">
+        </div>
+
+        <div class="auth-field">
+            <label id="auth-password-label">Password</label>
+            <input type="password" id="auth-password" placeholder="Password" autofocus>
+        </div>
+
+        <button class="auth-btn" id="auth-submit" onclick="submitAuth()">Continue</button>
+        <div class="auth-error" id="auth-error"></div>
+    </div>
+</div>
+
+<!-- ═══ ADMIN PANEL ════════════════════════════════════════ -->
+<div id="admin-panel" style="min-height: 100vh; display: none;">
+    <header class="admin-header">
+        <div class="admin-logo">HALT <span>/ Admin</span></div>
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab('config')">Config</button>
+            <button class="tab-btn" onclick="showTab('results')">Results</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </nav>
+    </header>
+
+    <!-- ── Config Tab ── -->
+    <div id="tab-config" class="tab-content active">
+        <div class="tab-body">
+
+            <!-- ════ 1. SESSION ════ -->
+            <div class="section">
+                <div class="section-label">Session</div>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Blocks</label>
+                        <input type="number" id="cfg-num-blocks" min="1" max="20" value="2">
+                        <div class="hint">Number of blocks in the real session</div>
+                    </div>
+                    <div class="form-field">
+                        <label>LIFT trials / block</label>
+                        <input type="number" id="cfg-go-per-block" min="1" max="100" value="15">
+                    </div>
+                    <div class="form-field">
+                        <label>HOLD trials / block</label>
+                        <input type="number" id="cfg-nogo-per-block" min="1" max="100" value="5">
+                    </div>
+                    <div class="form-field">
+                        <label>Trials / block (derived)</label>
+                        <input type="number" id="cfg-trials-per-block" readonly>
+                    </div>
+                </div>
+
+                <div class="toggle-row" style="margin-top:14px;">
+                    <div>
+                        <div class="toggle-label">Practice Phase</div>
+                        <div class="toggle-hint">Show a practice block before the real session begins</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cfg-practice-enabled" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">Tutorial</div>
+                        <div class="toggle-hint">Interactive tutorial with animated demos before practice</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cfg-tutorial-enabled" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
             </div>
 
-            <div class="auth-field">
-                <label id="auth-password-label">Password</label>
-                <input type="password" id="auth-password" placeholder="Password" autofocus>
+            <!-- ════ 2. TRIAL SEQUENCE ════ -->
+            <div class="section">
+                <div class="section-label">Trial Sequence (one entry per trial position)</div>
+                <div class="trial-grid-label">Click a cell to toggle between LIFT and HOLD.</div>
+                <div id="trial-type-grid" class="trial-grid"></div>
+                <div class="trial-counts" id="trial-counts"></div>
+                <div class="validation-error" id="trial-type-error"></div>
             </div>
 
-            <button class="auth-btn" id="auth-submit" onclick="submitAuth()">Continue</button>
-            <div class="auth-error" id="auth-error"></div>
+            <!-- ════ 3. TRIAL TIMING ════ -->
+            <div class="section">
+                <div class="section-label">Trial Timing</div>
+                <div class="hint" style="margin-bottom: 14px;">
+                    Two waiting windows shape each trial. <strong>Wait Before Prompt</strong> is the delay between the participant pressing the circle and the LIFT or HOLD prompt appearing. <strong>Wait Before Recontact</strong> is the delay between the participant lifting their finger and the recontact prompt appearing (LIFT trials only).
+                </div>
+
+                <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:20px;font-size:12px;color:var(--text-secondary);">
+                    <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Trial Timeline</div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.4;">
+                        <span style="padding:4px 10px;background:var(--surface);border:1px solid var(--border-strong);border-radius:4px;">Press &amp; Hold</span>
+                        <span style="color:var(--accent);font-weight:600;">→ Wait Before Prompt →</span>
+                        <span style="padding:4px 10px;background:var(--surface);border:1px solid var(--border-strong);border-radius:4px;">LIFT or HOLD prompt</span>
+                        <span style="color:var(--text-muted);">→</span>
+                        <span style="padding:4px 10px;background:var(--surface);border:1px solid var(--border-strong);border-radius:4px;">Participant responds</span>
+                    </div>
+                    <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.4;">
+                        <span style="font-size:11px;color:var(--text-muted);font-style:italic;margin-right:4px;">LIFT trials only:</span>
+                        <span style="padding:4px 10px;background:var(--surface);border:1px solid var(--border-strong);border-radius:4px;">Finger lifted</span>
+                        <span style="color:var(--accent);font-weight:600;">→ Wait Before Recontact →</span>
+                        <span style="padding:4px 10px;background:var(--surface);border:1px solid var(--border-strong);border-radius:4px;">Recontact prompt</span>
+                        <span style="color:var(--text-muted);">→</span>
+                        <span style="padding:4px 10px;background:var(--surface);border:1px solid var(--border-strong);border-radius:4px;">Press circle again</span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label>Wait Before Prompt (ms)</label>
+                    <div class="hint" style="margin-bottom:8px;">One value per trial position, comma-separated. Varying values prevent anticipation.</div>
+                    <textarea class="array-input" id="cfg-stim-delays" rows="3" placeholder="e.g. 2000, 3000, 2500, 1500 ..."></textarea>
+                    <div class="validation-error" id="stim-delay-error"></div>
+                </div>
+
+                <div class="form-field" style="margin-top:18px;">
+                    <label>Wait Before Recontact (ms)</label>
+                    <div class="hint" style="margin-bottom:8px;">LIFT trials only. One value per trial position, comma-separated.</div>
+                    <textarea class="array-input" id="cfg-prompt-delays" rows="3" placeholder="e.g. 1000, 1500, 1000, 1000 ..."></textarea>
+                    <div class="validation-error" id="prompt-delay-error"></div>
+                </div>
+            </div>
+
+            <!-- ════ 4. TRIAL BEHAVIOR ════ -->
+            <div class="section">
+                <div class="section-label">Trial Behavior</div>
+
+                <div class="form-grid" style="margin-bottom:14px;">
+                    <div class="form-field">
+                        <label>HOLD Trial Duration (ms)</label>
+                        <input type="number" id="cfg-nogo-hold-duration" min="1000" max="30000" value="5000">
+                        <div class="hint">How long the participant must hold without lifting on HOLD trials before the trial is scored correct</div>
+                    </div>
+                    <div class="form-field">
+                        <label>LIFT Response Window (ms)</label>
+                        <input type="number" id="cfg-go-response-window" min="500" max="10000" value="2500">
+                        <div class="hint">How long the participant has to lift their finger after the LIFT prompt before being scored too slow</div>
+                    </div>
+                </div>
+
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">Skip on Late Release</div>
+                        <div class="toggle-hint">Advance to next trial on late release errors (LIFT trials)</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cfg-skip-late-release">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="toggle-row sub-toggle" id="row-show-error-late-release">
+                    <div>
+                        <div class="toggle-label">Show error message (Late Release)</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cfg-show-error-late-release" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">Skip on Failed Inhibition</div>
+                        <div class="toggle-hint">Advance to next trial on failed inhibition errors (HOLD trials)</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cfg-skip-failed-inhibition">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="toggle-row sub-toggle" id="row-show-error-failed-inhibition">
+                    <div>
+                        <div class="toggle-label">Show error message (Failed Inhibition)</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cfg-show-error-failed-inhibition" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">Multi-Touch Detection</div>
+                        <div class="toggle-hint">Warn participant and block trial when multiple fingers touch the screen</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="cfg-multitouch-enabled">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="form-field sub-toggle" id="row-multitouch-message" style="padding:12px 0 12px 24px;">
+                    <label>Multi-Touch Message</label>
+                    <input type="text" id="cfg-multitouch-message" value="Please use only one finger on the screen.">
+                </div>
+            </div>
+
+            <!-- ════ 5. PROMPTS & DISPLAY ════ -->
+            <div class="section">
+                <div class="section-label">Prompts &amp; Display</div>
+                <div class="hint" style="margin-bottom:14px;">Text shown above the circle during each trial state.</div>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Press &amp; Hold Text</label>
+                        <input type="text" id="cfg-press-hold-text" value="Press &amp; Hold">
+                        <div class="hint">Shown when waiting for participant to press and hold the circle</div>
+                    </div>
+                    <div class="form-field">
+                        <label>Pending Prompt Text</label>
+                        <input type="text" id="cfg-pending-prompt-text" value="Hold...">
+                        <div class="hint">Shown while holding before the LIFT or HOLD prompt appears</div>
+                    </div>
+                    <div class="form-field">
+                        <label>LIFT Trial Prompt</label>
+                        <input type="text" id="cfg-go-prompt-text" value="LIFT">
+                        <div class="hint">Shown on LIFT trials, signals participant to lift finger</div>
+                    </div>
+                    <div class="form-field">
+                        <label>LIFT Recontact Prompt</label>
+                        <input type="text" id="cfg-go-recontact-prompt-text" value="HOLD">
+                        <div class="hint">Shown after lifting, signals participant to press circle again</div>
+                    </div>
+                    <div class="form-field">
+                        <label>HOLD Trial Prompt</label>
+                        <input type="text" id="cfg-nogo-prompt-text" value="HOLD">
+                        <div class="hint">Shown on HOLD trials, signals participant to keep holding</div>
+                    </div>
+                    <div class="form-field">
+                        <label>Demo Animation Speed</label>
+                        <input type="number" id="cfg-animation-speed" min="0.5" max="3.0" step="0.25" value="1.0">
+                        <div class="hint">Multiplier for the tutorial demo animation speed. 1.0 = default (9s LIFT loop, 7.5s HOLD loop). Higher = slower.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ════ 6. TUTORIAL ════ -->
+            <div class="section">
+                <div class="section-label">Tutorial Practice Trials</div>
+                <div class="hint" style="margin-bottom:14px;">
+                    After each animated demo the participant performs the action this many times before moving on.
+                </div>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>LIFT Practice Trials</label>
+                        <input type="number" id="cfg-tutorial-go-count" min="1" max="10" value="2">
+                        <div class="hint">Number of LIFT trials after the LIFT demo</div>
+                    </div>
+                    <div class="form-field">
+                        <label>HOLD Practice Trials</label>
+                        <input type="number" id="cfg-tutorial-nogo-count" min="1" max="10" value="2">
+                        <div class="hint">Number of HOLD trials after the HOLD demo</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ════ 7. INSTRUCTIONS ════ -->
+            <div class="section">
+                <div class="section-label">Instructions</div>
+
+                <div class="instr-block">
+                    <div class="instr-block-title">Slide 1 — Overview (first screen of tutorial)</div>
+                    <div class="hint" style="margin-bottom:12px;">Shown as the first text slide in Tutorial mode and in Static mode.</div>
+                    <div class="instr-field"><label>Title</label><input type="text" id="instr-overview-title"></div>
+                    <div class="instr-field">
+                        <label>Message <span style="font-weight:400;text-transform:none;letter-spacing:0;">(HTML allowed — <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;br&gt;</code>, etc.)</span></label>
+                        <textarea id="instr-overview-message" rows="3" oninput="updatePreview('overview-message','preview-overview-message')"></textarea>
+                        <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
+                        <div class="instr-preview" id="preview-overview-message"></div>
+                    </div>
+                    <div class="instr-field"><label>Button Text</label><input type="text" id="instr-overview-btn"></div>
+                </div>
+
+                <div class="instr-block">
+                    <div class="instr-block-title">Slide 2 — LIFT Demo (shown above the LIFT animation)</div>
+                    <div class="instr-field"><label>Title</label><input type="text" id="instr-go-title"></div>
+                    <div class="instr-field">
+                        <label>Message (HTML allowed)</label>
+                        <textarea id="instr-go-message" rows="3" oninput="updatePreview('go-message','preview-go-message')"></textarea>
+                        <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
+                        <div class="instr-preview" id="preview-go-message"></div>
+                    </div>
+                    <div class="instr-field"><label>Button Text</label><input type="text" id="instr-go-btn"></div>
+                </div>
+
+                <div class="instr-block">
+                    <div class="instr-block-title">Slide 3 — HOLD Demo (shown above the HOLD animation)</div>
+                    <div class="instr-field"><label>Title</label><input type="text" id="instr-nogo-title"></div>
+                    <div class="instr-field">
+                        <label>Message (HTML allowed)</label>
+                        <textarea id="instr-nogo-message" rows="3" oninput="updatePreview('nogo-message','preview-nogo-message')"></textarea>
+                        <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
+                        <div class="instr-preview" id="preview-nogo-message"></div>
+                    </div>
+                    <div class="instr-field"><label>Button Text</label><input type="text" id="instr-nogo-btn"></div>
+                </div>
+
+                <div class="instr-block">
+                    <div class="instr-block-title">Slide 4 — Tutorial Complete</div>
+                    <div class="instr-field"><label>Title</label><input type="text" id="instr-complete-title"></div>
+                    <div class="instr-field">
+                        <label>Message (HTML allowed)</label>
+                        <textarea id="instr-complete-message" rows="3" oninput="updatePreview('complete-message','preview-complete-message')"></textarea>
+                        <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
+                        <div class="instr-preview" id="preview-complete-message"></div>
+                    </div>
+                    <div class="instr-field"><label>Button Text</label><input type="text" id="instr-complete-btn"></div>
+                </div>
+
+                <div class="instr-block">
+                    <div class="instr-block-title">Static Instructions Body (when Tutorial is disabled)</div>
+                    <div class="hint" style="margin-bottom:12px;">Replaces slides 2–4 when Tutorial is off. Write full HTML — use <code>&lt;p class="text-lg mb-4"&gt;</code> for paragraphs.</div>
+                    <div class="instr-field"><label>Title</label><input type="text" id="instr-static-title"></div>
+                    <div class="instr-field">
+                        <label>Body HTML</label>
+                        <textarea id="instr-static-body" rows="6" oninput="updatePreview('static-body','preview-static-body')"></textarea>
+                        <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
+                        <div class="instr-preview" id="preview-static-body"></div>
+                    </div>
+                    <div class="instr-field"><label>Button Text</label><input type="text" id="instr-static-btn"></div>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn-save" onclick="saveConfig()">Save Configuration</button>
+                <span class="save-status" id="config-status"></span>
+            </div>
+
+            <!-- ════ 8. SECURITY ════ -->
+            <div class="section" style="margin-top:40px;">
+                <div class="section-label">Security</div>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Current Password</label>
+                        <input type="password" id="cfg-current-password" autocomplete="current-password">
+                    </div>
+                    <div class="form-field">
+                        <label>New Password</label>
+                        <input type="password" id="cfg-new-password" autocomplete="new-password">
+                        <div class="hint">Minimum 8 characters</div>
+                    </div>
+                    <div class="form-field">
+                        <label>Confirm New Password</label>
+                        <input type="password" id="cfg-confirm-password" autocomplete="new-password">
+                    </div>
+                </div>
+                <div class="action-row" style="margin-top:14px;">
+                    <button class="btn-save" onclick="changePassword()">Update Password</button>
+                    <span class="save-status" id="password-status"></span>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- ═══ ADMIN PANEL ════════════════════════════════════════ -->
-    <div id="admin-panel" style="min-height: 100vh; display: none;">
-        <header class="admin-header">
-            <div class="admin-logo">HALT <span>/ Admin</span></div>
-            <nav class="tab-nav">
-                <button class="tab-btn active" onclick="showTab('config')">Config</button>
-                <button class="tab-btn" onclick="showTab('results')">Results</button>
-                <button class="logout-btn" onclick="logout()">Logout</button>
-            </nav>
-        </header>
+    <!-- ── Results Tab ── -->
+    <div id="tab-results" class="tab-content">
+        <div class="results-body">
 
-        <!-- ── Config Tab ── -->
-        <div id="tab-config" class="tab-content active">
-            <div class="tab-body">
-
-                <div class="section">
-                    <div class="section-label">Session Structure</div>
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label>Blocks</label>
-                            <input type="number" id="cfg-num-blocks" min="1" max="20" value="2">
-                            <div class="hint">Number of blocks in the real session</div>
-                        </div>
-                        <div class="form-field">
-                            <label>LIFT trials / block</label>
-                            <input type="number" id="cfg-go-per-block" min="1" max="100" value="15">
-                        </div>
-                        <div class="form-field">
-                            <label>HOLD trials / block</label>
-                            <input type="number" id="cfg-nogo-per-block" min="1" max="100" value="5">
-                        </div>
-                        <div class="form-field">
-                            <label>Trials / block (derived)</label>
-                            <input type="number" id="cfg-trials-per-block" readonly>
-                        </div>
-                    </div>
+            <div class="section">
+                <div class="section-label">Export Data</div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="btn-download" onclick="downloadAllCSV()">Download All Participants (CSV)</button>
+                    <button class="btn-download" id="btn-download-pid" style="display:none" onclick="downloadPidCSV()">Download Selected Participant (CSV)</button>
                 </div>
+            </div>
 
-                <div class="section">
-                    <div class="section-label">Task Behavior</div>
-
-                    <div class="toggle-row">
-                        <div>
-                            <div class="toggle-label">Tutorial</div>
-                            <div class="toggle-hint">Interactive tutorial before practice trials</div>
-                        </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="cfg-tutorial-enabled" checked>
-                            <span class="toggle-slider"></span>
-                        </label>
-
-                        <div class="toggle-row">
-                            <div>
-                                <div class="toggle-label">Practice Phase</div>
-                                <div class="toggle-hint">Practice trials before the real study</div>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="cfg-practice-enabled" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-grid" style="margin-top:14px; margin-bottom:14px;">
-                        <div class="form-field">
-                            <label>HOLD Trial Duration (ms)</label>
-                            <input type="number" id="cfg-nogo-hold-duration" min="1000" max="30000" value="5000">
-                            <div class="hint">How long the participant must hold without lifting on HOLD trials before
-                                the trial is scored correct</div>
-                        </div>
-                        <div class="form-field">
-                            <label>LIFT Response Window (ms)</label>
-                            <input type="number" id="cfg-go-response-window" min="500" max="10000" value="2500">
-                            <div class="hint">How long the participant has to lift their finger after the LIFT prompt
-                                appears before the trial is scored as too slow</div>
-                        </div>
-                        <div class="form-field">
-                            <label>Pending Prompt Text</label>
-                            <input type="text" id="cfg-pending-prompt-text" value="Hold...">
-                            <div class="hint">Text shown while waiting for the trial prompt to appear</div>
-                        </div>
-                    </div>
-
-                    <div class="toggle-row">
-                        <div>
-                            <div class="toggle-label">Skip on Late Release</div>
-                            <div class="toggle-hint">Advance to next trial on late release errors (go trials)</div>
-                        </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="cfg-skip-late-release">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-row sub-toggle" id="row-show-error-late-release">
-                        <div>
-                            <div class="toggle-label">Show error message (Late Release)</div>
-                        </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="cfg-show-error-late-release" checked>
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-
-                    <div class="toggle-row">
-                        <div>
-                            <div class="toggle-label">Skip on Failed Inhibition</div>
-                            <div class="toggle-hint">Advance to next trial on failed inhibition errors (hold trials)
-                            </div>
-                        </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="cfg-skip-failed-inhibition">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-row sub-toggle" id="row-show-error-failed-inhibition">
-                        <div>
-                            <div class="toggle-label">Show error message (Failed Inhibition)</div>
-                        </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="cfg-show-error-failed-inhibition" checked>
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-
-                    <div class="toggle-row">
-                        <div>
-                            <div class="toggle-label">Multi-Touch Detection</div>
-                            <div class="toggle-hint">Warn participant and block trial when multiple fingers touch the
-                                screen</div>
-                        </div>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="cfg-multitouch-enabled">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="form-field sub-toggle" id="row-multitouch-message" style="padding:12px 0 12px 24px;">
-                        <label>Multi-Touch Message</label>
-                        <input type="text" id="cfg-multitouch-message"
-                            value="Please use only one finger on the screen.">
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-label">Trial Sequence (one entry per trial position)</div>
-                    <div class="trial-grid-label">Click a cell to toggle between LIFT and HOLD.</div>
-                    <div id="trial-type-grid" class="trial-grid"></div>
-                    <div class="trial-counts" id="trial-counts"></div>
-                    <div class="validation-error" id="trial-type-error"></div>
-                </div>
-
-                <div class="section">
-                    <div class="section-label">Trial Timing</div>
-                    <div class="hint" style="margin-bottom: 14px;">
-                        Two waiting windows shape each trial. <strong>Wait Before Prompt</strong> is the delay between
-                        the participant pressing the circle and the LIFT or HOLD prompt appearing. It applies to every
-                        trial. <strong>Wait Before Recontact</strong> is the delay between the participant lifting their
-                        finger and the recontact prompt appearing. It applies only to LIFT trials.
-                    </div>
-
-                    <!-- Inline trial timeline diagram -->
-                    <div style="
-                    background: var(--bg);
-                    border: 1px solid var(--border);
-                    border-radius: 8px;
-                    padding: 18px 20px;
-                    margin-bottom: 20px;
-                    font-size: 12px;
-                    color: var(--text-secondary);
-                ">
-                        <div
-                            style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">
-                            Trial Timeline</div>
-
-                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; line-height: 1.4;">
-                            <span
-                                style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Press
-                                &amp; Hold</span>
-                            <span style="color: var(--accent); font-weight: 600;">→ Wait Before Prompt →</span>
-                            <span
-                                style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">LIFT
-                                or HOLD prompt</span>
-                            <span style="color: var(--text-muted);">→</span>
-                            <span
-                                style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Participant
-                                responds</span>
-                        </div>
-
-                        <div
-                            style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; line-height: 1.4;">
-                            <span
-                                style="font-size: 11px; color: var(--text-muted); font-style: italic; margin-right: 4px;">LIFT
-                                trials only:</span>
-                            <span
-                                style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Finger
-                                lifted</span>
-                            <span style="color: var(--accent); font-weight: 600;">→ Wait Before Recontact →</span>
-                            <span
-                                style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Recontact
-                                prompt</span>
-                            <span style="color: var(--text-muted);">→</span>
-                            <span
-                                style="padding: 4px 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px;">Press
-                                circle again</span>
-                        </div>
-                    </div>
-
-                    <div class="form-field">
-                        <label>Wait Before Prompt (ms)</label>
-                        <div class="hint" style="margin-bottom: 8px;">
-                            Time between the participant pressing the circle and the trial prompt (LIFT or HOLD)
-                            appearing. Varying values across trials prevent anticipation. One value per trial position,
-                            comma-separated.
-                        </div>
-                        <textarea class="array-input" id="cfg-stim-delays" rows="3"
-                            placeholder="e.g. 2000, 3000, 2500, 1500 ..."></textarea>
-                        <div class="validation-error" id="stim-delay-error"></div>
-                    </div>
-
-                    <div class="form-field" style="margin-top: 18px;">
-                        <label>Wait Before Recontact (ms)</label>
-                        <div class="hint" style="margin-bottom: 8px;">
-                            LIFT trials only. Time between the participant lifting their finger and the recontact prompt
-                            appearing, which tells them to press the circle again. One value per trial position,
-                            comma-separated.
-                        </div>
-                        <textarea class="array-input" id="cfg-prompt-delays" rows="3"
-                            placeholder="e.g. 1000, 1500, 1000, 1000 ..."></textarea>
-                        <div class="validation-error" id="prompt-delay-error"></div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-label">Trial Prompts</div>
-                    <div class="hint" style="margin-bottom:14px;">Text shown above the circle during each trial state.
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label>LIFT Trial Prompt</label>
-                            <input type="text" id="cfg-go-prompt-text" value="LIFT">
-                            <div class="hint">Shown on go trials, signals participant to lift finger</div>
-                        </div>
-                        <div class="form-field">
-                            <label>LIFT Recontact Prompt</label>
-                            <input type="text" id="cfg-go-recontact-prompt-text" value="HOLD">
-                            <div class="hint">Shown after lifting, signals participant to press circle again</div>
-                        </div>
-                        <div class="form-field">
-                            <label>HOLD Trial Prompt</label>
-                            <input type="text" id="cfg-nogo-prompt-text" value="HOLD">
-                            <div class="hint">Shown on hold trials, signals participant to keep holding</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-label">Instructions</div>
-
-                    <div class="instr-block">
-                        <div class="instr-block-title">Slide 1 — Overview</div>
-                        <div class="hint" style="margin-bottom:12px;">Shown as first text slide in Tutorial mode and in
-                            Static mode.</div>
-                        <div class="instr-field"><label>Title</label><input type="text" id="instr-overview-title"></div>
-                        <div class="instr-field">
-                            <label>Message <span style="font-weight:400;text-transform:none;letter-spacing:0;">(HTML
-                                    allowed — <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>,
-                                    <code>&lt;br&gt;</code>, etc.)</span></label>
-                            <textarea id="instr-overview-message" rows="3"
-                                oninput="updatePreview('overview-message','preview-overview-message')"></textarea>
-                            <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
-                            <div class="instr-preview" id="preview-overview-message"></div>
-                        </div>
-                        <div class="instr-field"><label>Button Text</label><input type="text" id="instr-overview-btn">
-                        </div>
-                    </div>
-
-                    <div class="instr-block">
-                        <div class="instr-block-title">Slide 2 — LIFT Explanation (Tutorial only)</div>
-                        <div class="instr-field"><label>Title</label><input type="text" id="instr-go-title"></div>
-                        <div class="instr-field">
-                            <label>Message (HTML allowed)</label>
-                            <textarea id="instr-go-message" rows="3"
-                                oninput="updatePreview('go-message','preview-go-message')"></textarea>
-                            <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
-                            <div class="instr-preview" id="preview-go-message"></div>
-                        </div>
-                        <div class="instr-field"><label>Button Text</label><input type="text" id="instr-go-btn"></div>
-                    </div>
-
-                    <div class="instr-block">
-                        <div class="instr-block-title">Slide 3 — HOLD Explanation (Tutorial only)</div>
-                        <div class="instr-field"><label>Title</label><input type="text" id="instr-nogo-title"></div>
-                        <div class="instr-field">
-                            <label>Message (HTML allowed)</label>
-                            <textarea id="instr-nogo-message" rows="3"
-                                oninput="updatePreview('nogo-message','preview-nogo-message')"></textarea>
-                            <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
-                            <div class="instr-preview" id="preview-nogo-message"></div>
-                        </div>
-                        <div class="instr-field"><label>Button Text</label><input type="text" id="instr-nogo-btn"></div>
-                    </div>
-
-                    <div class="instr-block">
-                        <div class="instr-block-title">Slide 4 — Tutorial Complete (Tutorial only)</div>
-                        <div class="instr-field"><label>Title</label><input type="text" id="instr-complete-title"></div>
-                        <div class="instr-field">
-                            <label>Message (HTML allowed)</label>
-                            <textarea id="instr-complete-message" rows="3"
-                                oninput="updatePreview('complete-message','preview-complete-message')"></textarea>
-                            <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
-                            <div class="instr-preview" id="preview-complete-message"></div>
-                        </div>
-                        <div class="instr-field"><label>Button Text</label><input type="text" id="instr-complete-btn">
-                        </div>
-                    </div>
-
-                    <div class="instr-block">
-                        <div class="instr-block-title">Static Instructions Body (when Tutorial is disabled)</div>
-                        <div class="hint" style="margin-bottom:12px;">Replaces slides 2–4 when Tutorial is off. Write
-                            full HTML — use <code>&lt;p class="text-lg mb-4"&gt;</code> for paragraphs.</div>
-                        <div class="instr-field"><label>Title</label><input type="text" id="instr-static-title"></div>
-                        <div class="instr-field">
-                            <label>Body HTML</label>
-                            <textarea id="instr-static-body" rows="6"
-                                oninput="updatePreview('static-body','preview-static-body')"></textarea>
-                            <div class="instr-preview-label" style="margin-top:8px;">Preview</div>
-                            <div class="instr-preview" id="preview-static-body"></div>
-                        </div>
-                        <div class="instr-field"><label>Button Text</label><input type="text" id="instr-static-btn">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-label">Practice Sequence</div>
-                    <table class="practice-table" id="practice-table">
+            <div class="section">
+                <div class="section-label">Participants</div>
+                <div class="participant-table-wrap">
+                    <table class="ptable">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Type</th>
-                                <th>Wait Before Prompt (ms)<br><span
-                                        style="font-weight:400;font-size:10px;color:var(--text-muted);text-transform:none;letter-spacing:0;">Press
-                                        → Prompt</span></th>
-                                <th>Wait Before Recontact (ms)<br><span
-                                        style="font-weight:400;font-size:10px;color:var(--text-muted);text-transform:none;letter-spacing:0;">Lift
-                                        → Recontact</span></th>
-                                <th>X Factor</th>
-                                <th>Y Factor</th>
+                                <th>PID</th>
+                                <th>Session Date</th>
+                                <th>Real Trials</th>
+                                <th>Total Rows</th>
+                                <th>Accuracy (%)</th>
+                                <th>Mean RT-Release (ms)</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody id="practice-tbody"></tbody>
+                        <tbody id="participant-tbody">
+                            <tr class="loading-row"><td colspan="7">Loading…</td></tr>
+                        </tbody>
                     </table>
-                    <button class="btn-add-row" onclick="addPracticeRow()">+ Add trial</button>
                 </div>
-
-                <div class="action-row">
-                    <button class="btn-save" onclick="saveConfig()">Save Configuration</button>
-                    <span class="save-status" id="config-status"></span>
-                </div>
-
-                <div class="section">
-                    <div class="section-label">Change Password</div>
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label>Current Password</label>
-                            <input type="password" id="cfg-current-password" autocomplete="current-password">
-                        </div>
-                        <div class="form-field">
-                            <label>New Password</label>
-                            <input type="password" id="cfg-new-password" autocomplete="new-password">
-                            <div class="hint">Minimum 8 characters</div>
-                        </div>
-                        <div class="form-field">
-                            <label>Confirm New Password</label>
-                            <input type="password" id="cfg-confirm-password" autocomplete="new-password">
-                        </div>
-                    </div>
-                    <div class="action-row" style="margin-top:14px;">
-                        <button class="btn-save" onclick="changePassword()">Update Password</button>
-                        <span class="save-status" id="password-status"></span>
-                    </div>
-                </div>
-
             </div>
-        </div>
 
-        <!-- ── Results Tab ── -->
-        <div id="tab-results" class="tab-content">
-            <div class="results-body">
-
-                <div class="section">
-                    <div class="section-label">Export Data</div>
-                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn-download" onclick="downloadAllCSV()">Download All Participants (CSV)</button>
-                        <button class="btn-download" id="btn-download-pid" style="display:none"
-                            onclick="downloadPidCSV()">Download Selected Participant (CSV)</button>
+            <!-- Per-participant dashboard (shown after selecting a row) -->
+            <div id="participant-dashboard">
+                <div class="dash-header">
+                    <div class="dash-pid">Participant <span id="dash-pid-label">—</span></div>
+                    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                        <div class="phase-toggle">
+                            <button class="active" onclick="setDashPhase('both')">Both</button>
+                            <button onclick="setDashPhase('practice')">Practice</button>
+                            <button onclick="setDashPhase('real')">Real Study</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="section">
-                    <div class="section-label">Participants</div>
-                    <div class="participant-table-wrap">
-                        <table class="ptable">
+                    <div class="section-label">Summary</div>
+                    <div class="stat-grid">
+                        <div class="stat-cell"><div class="stat-value" id="d-total">—</div><div class="stat-label">Total trials</div></div>
+                        <div class="stat-cell"><div class="stat-value" id="d-accuracy">—</div><div class="stat-label">Accuracy</div></div>
+                        <div class="stat-cell"><div class="stat-value go" id="d-go-acc">—</div><div class="stat-label">LIFT accuracy</div></div>
+                        <div class="stat-cell"><div class="stat-value nogo" id="d-nogo-acc">—</div><div class="stat-label">HOLD accuracy</div></div>
+                        <div class="stat-cell"><div class="stat-value warn" id="d-early">—</div><div class="stat-label">Early releases</div></div>
+                        <div class="stat-cell"><div class="stat-value warn" id="d-anticipatory">—</div><div class="stat-label">Anticipatory</div></div>
+                        <div class="stat-cell"><div class="stat-value warn" id="d-slips">—</div><div class="stat-label">Slips</div></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-label">Reaction Times — LIFT Trials</div>
+                    <div class="stat-grid">
+                        <div class="stat-cell"><div class="stat-value" id="d-mean-rt">—</div><div class="stat-label">Mean RT-Release (ms)</div></div>
+                        <div class="stat-cell"><div class="stat-value" id="d-median-rt">—</div><div class="stat-label">Median RT-Release (ms)</div></div>
+                        <div class="stat-cell"><div class="stat-value" id="d-sd-rt">—</div><div class="stat-label">RT-Release SD (ms)</div></div>
+                        <div class="stat-cell"><div class="stat-value" id="d-mean-rtdown">—</div><div class="stat-label">Mean RT-Down (ms)</div></div>
+                        <div class="stat-cell"><div class="stat-value" id="d-mean-resp">—</div><div class="stat-label">Mean Total Response (ms)</div></div>
+                        <div class="stat-cell"><div class="stat-value warn" id="d-mean-slip">—</div><div class="stat-label">Mean Slip Duration (ms)</div></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-label">Charts</div>
+                    <div class="chart-grid" style="margin-bottom:12px;">
+                        <div class="chart-card">
+                            <div class="chart-header"><div class="chart-title">RT-Release</div><div class="chart-subtitle">LIFT trials</div></div>
+                            <div class="chart-body" id="d-chart-rt-hist"></div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header"><div class="chart-title">RT-Down</div><div class="chart-subtitle">Time to recontact after prompt</div></div>
+                            <div class="chart-body" id="d-chart-rtdown-hist"></div>
+                        </div>
+                    </div>
+                    <div class="chart-full">
+                        <div class="chart-header"><div class="chart-title">RT-Release over trials</div></div>
+                        <div class="chart-body" id="d-chart-rt-trial"></div>
+                    </div>
+                    <div class="chart-grid">
+                        <div class="chart-card">
+                            <div class="chart-header"><div class="chart-title">RT by Phase</div><div class="chart-subtitle">Practice vs Real Study</div></div>
+                            <div class="chart-body" id="d-chart-phase-box"></div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header"><div class="chart-title">Accuracy by Phase</div></div>
+                            <div class="chart-body" id="d-chart-phase-acc"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-label">Trial Data</div>
+                    <div class="table-wrap">
+                        <table class="dtable">
                             <thead>
                                 <tr>
-                                    <th>PID</th>
-                                    <th>Session Date</th>
-                                    <th>Real Trials</th>
-                                    <th>Total Rows</th>
-                                    <th>Accuracy (%)</th>
-                                    <th>Mean RT-Release (ms)</th>
-                                    <th></th>
+                                    <th>Phase</th><th>Block</th><th>Trial</th><th>In Block</th>
+                                    <th>Type</th><th>Correct</th><th>Result</th><th>Error</th>
+                                    <th>RT-Release</th><th>RT-Down</th><th>Response</th>
+                                    <th>Anticipatory</th><th>Slip (ms)</th>
+                                    <th>Wait Before Prompt (ms)</th><th>Wait Before Recontact (ms)</th>
+                                    <th>X</th><th>Y</th><th>Timestamp</th>
                                 </tr>
                             </thead>
-                            <tbody id="participant-tbody">
-                                <tr class="loading-row">
-                                    <td colspan="7">Loading…</td>
-                                </tr>
-                            </tbody>
+                            <tbody id="d-table-body"></tbody>
                         </table>
                     </div>
                 </div>
-
-                <!-- Per-participant dashboard (shown after selecting a row) -->
-                <div id="participant-dashboard">
-                    <div class="dash-header">
-                        <div class="dash-pid">Participant <span id="dash-pid-label">—</span></div>
-                        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-                            <div class="phase-toggle">
-                                <button class="active" onclick="setDashPhase('both')">Both</button>
-                                <button onclick="setDashPhase('practice')">Practice</button>
-                                <button onclick="setDashPhase('real')">Real Study</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-label">Summary</div>
-                        <div class="stat-grid">
-                            <div class="stat-cell">
-                                <div class="stat-value" id="d-total">—</div>
-                                <div class="stat-label">Total trials</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value" id="d-accuracy">—</div>
-                                <div class="stat-label">Accuracy</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value go" id="d-go-acc">—</div>
-                                <div class="stat-label">LIFT accuracy</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value nogo" id="d-nogo-acc">—</div>
-                                <div class="stat-label">HOLD accuracy</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value warn" id="d-early">—</div>
-                                <div class="stat-label">Early releases</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value warn" id="d-anticipatory">—</div>
-                                <div class="stat-label">Anticipatory</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value warn" id="d-slips">—</div>
-                                <div class="stat-label">Slips</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-label">Reaction Times — LIFT Trials</div>
-                        <div class="stat-grid">
-                            <div class="stat-cell">
-                                <div class="stat-value" id="d-mean-rt">—</div>
-                                <div class="stat-label">Mean RT-Release (ms)</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value" id="d-median-rt">—</div>
-                                <div class="stat-label">Median RT-Release (ms)</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value" id="d-sd-rt">—</div>
-                                <div class="stat-label">RT-Release SD (ms)</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value" id="d-mean-rtdown">—</div>
-                                <div class="stat-label">Mean RT-Down (ms)</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value" id="d-mean-resp">—</div>
-                                <div class="stat-label">Mean Total Response (ms)</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="stat-value warn" id="d-mean-slip">—</div>
-                                <div class="stat-label">Mean Slip Duration (ms)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-label">Charts</div>
-                        <div class="chart-grid" style="margin-bottom:12px;">
-                            <div class="chart-card">
-                                <div class="chart-header">
-                                    <div class="chart-title">RT-Release</div>
-                                    <div class="chart-subtitle">LIFT trials</div>
-                                </div>
-                                <div class="chart-body" id="d-chart-rt-hist"></div>
-                            </div>
-                            <div class="chart-card">
-                                <div class="chart-header">
-                                    <div class="chart-title">RT-Down</div>
-                                    <div class="chart-subtitle">Time to recontact after prompt</div>
-                                </div>
-                                <div class="chart-body" id="d-chart-rtdown-hist"></div>
-                            </div>
-                        </div>
-                        <div class="chart-full">
-                            <div class="chart-header">
-                                <div class="chart-title">RT-Release over trials</div>
-                            </div>
-                            <div class="chart-body" id="d-chart-rt-trial"></div>
-                        </div>
-                        <div class="chart-grid">
-                            <div class="chart-card">
-                                <div class="chart-header">
-                                    <div class="chart-title">RT by Phase</div>
-                                    <div class="chart-subtitle">Practice vs Real Study</div>
-                                </div>
-                                <div class="chart-body" id="d-chart-phase-box"></div>
-                            </div>
-                            <div class="chart-card">
-                                <div class="chart-header">
-                                    <div class="chart-title">Accuracy by Phase</div>
-                                </div>
-                                <div class="chart-body" id="d-chart-phase-acc"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-label">Trial Data</div>
-                        <div class="table-wrap">
-                            <table class="dtable">
-                                <thead>
-                                    <tr>
-                                        <th>Phase</th>
-                                        <th>Block</th>
-                                        <th>Trial</th>
-                                        <th>In Block</th>
-                                        <th>Type</th>
-                                        <th>Correct</th>
-                                        <th>Result</th>
-                                        <th>Error</th>
-                                        <th>RT-Release</th>
-                                        <th>RT-Down</th>
-                                        <th>Response</th>
-                                        <th>Anticipatory</th>
-                                        <th>Slip (ms)</th>
-                                        <th>Wait Before Prompt (ms)</th>
-                                        <th>Wait Before Recontact (ms)</th>
-                                        <th>X</th>
-                                        <th>Y</th>
-                                        <th>Timestamp</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="d-table-body"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
         </div>
-
-
     </div>
 
-    <script>
-        // ═══ AUTH STATE ═════════════════════════════════════════════
-        let TOKEN = localStorage.getItem('halt_admin_token') || '';
 
-        function setToken(t) {
-            TOKEN = t || '';
-            if (TOKEN) localStorage.setItem('halt_admin_token', TOKEN);
-            else localStorage.removeItem('halt_admin_token');
-        }
+</div>
 
-        // ═══ API HELPER ═════════════════════════════════════════════
-        async function api(method, path, body) {
-            const opts = { method, headers: { 'Content-Type': 'application/json' } };
-            if (TOKEN) opts.headers['X-Admin-Token'] = TOKEN;
-            if (body) opts.body = JSON.stringify(body);
-            const res = await fetch(path, opts);
-            const data = await res.json();
-            if (res.status === 401) {
-                setToken('');
-                showAuthScreen();
-                throw new Error('Session expired. Please log in again.');
-            }
-            if (!res.ok) throw new Error(data.error || 'Request failed');
-            return data;
-        }
+<script>
+// ═══ AUTH STATE ═════════════════════════════════════════════
+let TOKEN = localStorage.getItem('halt_admin_token') || '';
 
-        // ═══ TAB NAV ════════════════════════════════════════════════
+function setToken(t) {
+    TOKEN = t || '';
+    if (TOKEN) localStorage.setItem('halt_admin_token', TOKEN);
+    else localStorage.removeItem('halt_admin_token');
+}
 
-        function showTab(name) {
-            document.querySelectorAll('.tab-btn').forEach((b, i) => {
-                b.classList.toggle('active', ['config', 'results'][i] === name);
-            });
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + name).classList.add('active');
-        }
+// ═══ API HELPER ═════════════════════════════════════════════
+async function api(method, path, body) {
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (TOKEN) opts.headers['X-Admin-Token'] = TOKEN;
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(path, opts);
+    const data = await res.json();
+    if (res.status === 401) {
+        setToken('');
+        showAuthScreen();
+        throw new Error('Session expired. Please log in again.');
+    }
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    return data;
+}
 
-        // ═══ CONFIG ═════════════════════════════════════════════════
+// ═══ TAB NAV ════════════════════════════════════════════════
 
-        let cfgData = null;
-        let trialTypes = [];
+function showTab(name) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', ['config','results'][i] === name);
+    });
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+}
 
-        function updateDerivedTrials() {
-            const go = parseInt(document.getElementById('cfg-go-per-block').value) || 0;
-            const nogo = parseInt(document.getElementById('cfg-nogo-per-block').value) || 0;
-            document.getElementById('cfg-trials-per-block').value = go + nogo;
-            rebuildTrialGrid(go + nogo);
-        }
+// ═══ CONFIG ═════════════════════════════════════════════════
 
-        ['cfg-go-per-block', 'cfg-nogo-per-block', 'cfg-num-blocks'].forEach(id => {
-            document.getElementById(id).addEventListener('input', updateDerivedTrials);
-        });
+let cfgData = null;
+let trialTypes = [];
 
-        function rebuildTrialGrid(targetLen) {
-            // Resize trialTypes to match targetLen, filling with 'go' if expanding
-            while (trialTypes.length < targetLen) trialTypes.push('go');
-            trialTypes = trialTypes.slice(0, targetLen);
+function updateDerivedTrials() {
+    const go   = parseInt(document.getElementById('cfg-go-per-block').value) || 0;
+    const nogo = parseInt(document.getElementById('cfg-nogo-per-block').value) || 0;
+    document.getElementById('cfg-trials-per-block').value = go + nogo;
+    rebuildTrialGrid(go + nogo);
+}
+
+['cfg-go-per-block', 'cfg-nogo-per-block', 'cfg-num-blocks'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateDerivedTrials);
+});
+
+function rebuildTrialGrid(targetLen) {
+    // Resize trialTypes to match targetLen, filling with 'go' if expanding
+    while (trialTypes.length < targetLen) trialTypes.push('go');
+    trialTypes = trialTypes.slice(0, targetLen);
+    renderTrialGrid();
+}
+
+function renderTrialGrid() {
+    const grid = document.getElementById('trial-type-grid');
+    grid.innerHTML = '';
+    trialTypes.forEach((t, i) => {
+        const cell = document.createElement('div');
+        cell.className = 'trial-cell ' + t;
+        cell.title = `Trial ${i + 1} — click to toggle`;
+        cell.textContent = t === 'go' ? 'LIFT' : 'HOLD';
+        cell.addEventListener('click', () => {
+            trialTypes[i] = trialTypes[i] === 'go' ? 'nogo' : 'go';
             renderTrialGrid();
+        });
+        grid.appendChild(cell);
+    });
+    updateTrialCounts();
+}
+
+function updateTrialCounts() {
+    const goCount   = trialTypes.filter(t => t === 'go').length;
+    const nogoCount = trialTypes.filter(t => t === 'nogo').length;
+    const goTarget   = parseInt(document.getElementById('cfg-go-per-block').value) || 0;
+    const nogoTarget = parseInt(document.getElementById('cfg-nogo-per-block').value) || 0;
+
+    const goOk   = goCount   === goTarget;
+    const nogoOk = nogoCount === nogoTarget;
+
+    document.getElementById('trial-counts').innerHTML =
+        `<span class="go-count">${goCount} LIFT</span> / <span class="nogo-count">${nogoCount} HOLD</span>` +
+        (!goOk   ? ` — <span class="error">need exactly ${goTarget} LIFT</span>` : '') +
+        (!nogoOk ? ` — <span class="error">need exactly ${nogoTarget} HOLD</span>` : '');
+}
+
+function parseArray(str) {
+    return str.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+}
+
+function showError(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+}
+
+async function loadConfigForm() {
+    try {
+        cfgData = await api('GET', '/api/admin/config');
+        document.getElementById('cfg-num-blocks').value    = cfgData.NUM_BLOCKS;
+        document.getElementById('cfg-go-per-block').value  = cfgData.GO_PER_BLOCK;
+        document.getElementById('cfg-nogo-per-block').value = cfgData.NOGO_PER_BLOCK;
+        document.getElementById('cfg-trials-per-block').value =
+            cfgData.GO_PER_BLOCK + cfgData.NOGO_PER_BLOCK;
+
+        trialTypes = [...(cfgData.BLOCK_TRIAL_TYPES || [])];
+        renderTrialGrid();
+
+        document.getElementById('cfg-stim-delays').value =
+            (cfgData.BLOCK_STIM_DELAYS || []).join(', ');
+        document.getElementById('cfg-prompt-delays').value =
+            (cfgData.BLOCK_PROMPT_DELAYS || []).join(', ');
+
+        // Task behavior fields
+        document.getElementById('cfg-practice-enabled').checked = cfgData.PRACTICE_ENABLED !== false;
+        document.getElementById('cfg-tutorial-enabled').checked = cfgData.TUTORIAL_ENABLED !== false;
+        document.getElementById('cfg-tutorial-go-count').value = cfgData.TUTORIAL_GO_TRIAL_COUNT || 2;
+        document.getElementById('cfg-tutorial-nogo-count').value = cfgData.TUTORIAL_NOGO_TRIAL_COUNT || 2;
+        document.getElementById('cfg-nogo-hold-duration').value = cfgData.NOGO_HOLD_DURATION || 5000;
+        document.getElementById('cfg-go-response-window').value = cfgData.GO_RESPONSE_WINDOW || 2500;
+        document.getElementById('cfg-press-hold-text').value = cfgData.PRESS_HOLD_TEXT || 'Press & Hold';
+        document.getElementById('cfg-pending-prompt-text').value = cfgData.PENDING_PROMPT_TEXT || 'Hold...';
+        document.getElementById('cfg-skip-late-release').checked = !!cfgData.SKIP_ON_LATE_RELEASE;
+        document.getElementById('cfg-show-error-late-release').checked = cfgData.SHOW_ERROR_LATE_RELEASE !== false;
+        document.getElementById('cfg-skip-failed-inhibition').checked = !!cfgData.SKIP_ON_FAILED_INHIBITION;
+        document.getElementById('cfg-show-error-failed-inhibition').checked = cfgData.SHOW_ERROR_FAILED_INHIBITION !== false;
+        document.getElementById('cfg-multitouch-enabled').checked = !!cfgData.MULTITOUCH_ENABLED;
+        document.getElementById('cfg-multitouch-message').value = cfgData.MULTITOUCH_MESSAGE || 'Please use only one finger on the screen.';
+        document.getElementById('cfg-go-prompt-text').value = cfgData.GO_PROMPT_TEXT || 'LIFT';
+        document.getElementById('cfg-go-recontact-prompt-text').value = cfgData.GO_RECONTACT_PROMPT_TEXT || 'HOLD';
+        document.getElementById('cfg-nogo-prompt-text').value = cfgData.NOGO_PROMPT_TEXT || 'HOLD';
+        document.getElementById('cfg-animation-speed').value = cfgData.ANIMATION_SPEED != null ? cfgData.ANIMATION_SPEED : 1.0;
+        updateSubToggleVisibility();
+
+        loadInstructionFields(cfgData.INSTRUCTION_TEXTS || {});
+    } catch (e) {
+        console.error('Failed to load config:', e);
+    }
+}
+
+async function saveConfig() {
+    const numBlocks   = parseInt(document.getElementById('cfg-num-blocks').value);
+    const goPerBlock  = parseInt(document.getElementById('cfg-go-per-block').value);
+    const nogoPerBlock = parseInt(document.getElementById('cfg-nogo-per-block').value);
+    const trialsPerBlock = goPerBlock + nogoPerBlock;
+
+    const stimDelays   = parseArray(document.getElementById('cfg-stim-delays').value);
+    const promptDelays = parseArray(document.getElementById('cfg-prompt-delays').value);
+
+    // Validate
+    let valid = true;
+
+    const goCount   = trialTypes.filter(t => t === 'go').length;
+    const nogoCount = trialTypes.filter(t => t === 'nogo').length;
+    if (trialTypes.length !== trialsPerBlock || goCount !== goPerBlock || nogoCount !== nogoPerBlock) {
+        showError('trial-type-error',
+            `Trial sequence must have exactly ${trialsPerBlock} entries: ${goPerBlock} LIFT and ${nogoPerBlock} HOLD.`);
+        valid = false;
+    } else { showError('trial-type-error', ''); }
+
+    if (stimDelays.length !== trialsPerBlock) {
+        showError('stim-delay-error',
+            `Must have exactly ${trialsPerBlock} values (one per trial position). Found ${stimDelays.length}.`);
+        valid = false;
+    } else { showError('stim-delay-error', ''); }
+
+    if (promptDelays.length !== trialsPerBlock) {
+        showError('prompt-delay-error',
+            `Must have exactly ${trialsPerBlock} values (one per trial position). Found ${promptDelays.length}.`);
+        valid = false;
+    } else { showError('prompt-delay-error', ''); }
+
+    if (!valid) return;
+
+    const cfg = {
+        NUM_BLOCKS:       numBlocks,
+        GO_PER_BLOCK:     goPerBlock,
+        NOGO_PER_BLOCK:   nogoPerBlock,
+        BLOCK_TRIAL_TYPES: trialTypes,
+        BLOCK_STIM_DELAYS: stimDelays,
+        BLOCK_PROMPT_DELAYS: promptDelays,
+        BLOCK_X_FACTORS: cfgData ? cfgData.BLOCK_X_FACTORS : [],
+        BLOCK_Y_FACTORS: cfgData ? cfgData.BLOCK_Y_FACTORS : [],
+        PRACTICE_ENABLED: document.getElementById('cfg-practice-enabled').checked,
+        TUTORIAL_ENABLED: document.getElementById('cfg-tutorial-enabled').checked,
+        TUTORIAL_GO_TRIAL_COUNT: parseInt(document.getElementById('cfg-tutorial-go-count').value) || 2,
+        TUTORIAL_NOGO_TRIAL_COUNT: parseInt(document.getElementById('cfg-tutorial-nogo-count').value) || 2,
+        NOGO_HOLD_DURATION: parseInt(document.getElementById('cfg-nogo-hold-duration').value) || 5000,
+        GO_RESPONSE_WINDOW: parseInt(document.getElementById('cfg-go-response-window').value) || 2500,
+        PRESS_HOLD_TEXT: document.getElementById('cfg-press-hold-text').value || 'Press & Hold',
+        PENDING_PROMPT_TEXT: document.getElementById('cfg-pending-prompt-text').value || 'Hold...',
+        SKIP_ON_LATE_RELEASE: document.getElementById('cfg-skip-late-release').checked,
+        SHOW_ERROR_LATE_RELEASE: document.getElementById('cfg-show-error-late-release').checked,
+        SKIP_ON_FAILED_INHIBITION: document.getElementById('cfg-skip-failed-inhibition').checked,
+        SHOW_ERROR_FAILED_INHIBITION: document.getElementById('cfg-show-error-failed-inhibition').checked,
+        MULTITOUCH_ENABLED: document.getElementById('cfg-multitouch-enabled').checked,
+        MULTITOUCH_MESSAGE: document.getElementById('cfg-multitouch-message').value || 'Please use only one finger on the screen.',
+        GO_PROMPT_TEXT: document.getElementById('cfg-go-prompt-text').value || 'LIFT',
+        GO_RECONTACT_PROMPT_TEXT: document.getElementById('cfg-go-recontact-prompt-text').value || 'HOLD',
+        NOGO_PROMPT_TEXT: document.getElementById('cfg-nogo-prompt-text').value || 'HOLD',
+        ANIMATION_SPEED: parseFloat(document.getElementById('cfg-animation-speed').value) || 1.0,
+        INSTRUCTION_TEXTS: getInstructionTexts()
+    };
+
+    const statusEl = document.getElementById('config-status');
+    statusEl.className = 'save-status';
+    statusEl.textContent = 'Saving…';
+
+    try {
+        await api('POST', '/api/admin/config', cfg);
+        cfgData = cfg;
+        statusEl.className = 'save-status ok';
+        statusEl.textContent = 'Saved.';
+        setTimeout(() => { statusEl.textContent = ''; }, 3000);
+    } catch (e) {
+        statusEl.className = 'save-status err';
+        statusEl.textContent = e.message;
+    }
+}
+
+// ═══ RESULTS ════════════════════════════════════════════════
+
+let allParticipantData = [];
+let currentPid = null;
+let dashPhase  = 'both';
+
+async function loadParticipants() {
+    const tbody = document.getElementById('participant-tbody');
+    try {
+        const rows = await api('GET', '/api/admin/participants');
+        if (!rows.length) {
+            tbody.innerHTML = '<tr class="loading-row"><td colspan="7">No participants yet.</td></tr>';
+            return;
         }
-
-        function renderTrialGrid() {
-            const grid = document.getElementById('trial-type-grid');
-            grid.innerHTML = '';
-            trialTypes.forEach((t, i) => {
-                const cell = document.createElement('div');
-                cell.className = 'trial-cell ' + t;
-                cell.title = `Trial ${i + 1} — click to toggle`;
-                cell.textContent = t === 'go' ? 'LIFT' : 'HOLD';
-                cell.addEventListener('click', () => {
-                    trialTypes[i] = trialTypes[i] === 'go' ? 'nogo' : 'go';
-                    renderTrialGrid();
-                });
-                grid.appendChild(cell);
-            });
-            updateTrialCounts();
-        }
-
-        function updateTrialCounts() {
-            const goCount = trialTypes.filter(t => t === 'go').length;
-            const nogoCount = trialTypes.filter(t => t === 'nogo').length;
-            const goTarget = parseInt(document.getElementById('cfg-go-per-block').value) || 0;
-            const nogoTarget = parseInt(document.getElementById('cfg-nogo-per-block').value) || 0;
-
-            const goOk = goCount === goTarget;
-            const nogoOk = nogoCount === nogoTarget;
-
-            document.getElementById('trial-counts').innerHTML =
-                `<span class="go-count">${goCount} LIFT</span> / <span class="nogo-count">${nogoCount} HOLD</span>` +
-                (!goOk ? ` — <span class="error">need exactly ${goTarget} LIFT</span>` : '') +
-                (!nogoOk ? ` — <span class="error">need exactly ${nogoTarget} HOLD</span>` : '');
-        }
-
-        function addPracticeRow(trial) {
-            const tbody = document.getElementById('practice-tbody');
-            const idx = tbody.children.length + 1;
-            const t = trial || { type: 'go', delay: 3000, goPromptDelay: 1000, xFactor: 0, yFactor: 0 };
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-        <td style="color:var(--text-muted)">${idx}</td>
-        <td><select>
-            <option value="go"   ${t.type === 'go' ? 'selected' : ''}>LIFT</option>
-            <option value="nogo" ${t.type === 'nogo' ? 'selected' : ''}>HOLD</option>
-        </select></td>
-        <td><input type="number" value="${t.delay}" min="0" style="width:90px"></td>
-        <td><input type="number" value="${t.goPromptDelay}" min="0" style="width:90px"></td>
-        <td><input type="number" value="${t.xFactor}" min="-1" max="1" step="0.1" style="width:70px"></td>
-        <td><input type="number" value="${t.yFactor}" min="-1" max="1" step="0.1" style="width:70px"></td>
-        <td><button class="btn-remove-row" onclick="removePracticeRow(this)">✕</button></td>
-    `;
-            tbody.appendChild(tr);
-        }
-
-        function removePracticeRow(btn) {
-            btn.closest('tr').remove();
-            // Renumber
-            document.querySelectorAll('#practice-tbody tr').forEach((tr, i) => {
-                tr.cells[0].textContent = i + 1;
-            });
-        }
-
-        function getPracticeSequence() {
-            const rows = document.querySelectorAll('#practice-tbody tr');
-            return Array.from(rows).map(tr => ({
-                type: tr.querySelector('select').value,
-                delay: parseInt(tr.querySelectorAll('input')[0].value) || 0,
-                goPromptDelay: parseInt(tr.querySelectorAll('input')[1].value) || 0,
-                xFactor: parseFloat(tr.querySelectorAll('input')[2].value) || 0,
-                yFactor: parseFloat(tr.querySelectorAll('input')[3].value) || 0
-            }));
-        }
-
-        function parseArray(str) {
-            return str.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
-        }
-
-        function showError(id, msg) {
-            const el = document.getElementById(id);
-            el.textContent = msg;
-            el.style.display = msg ? 'block' : 'none';
-        }
-
-        async function loadConfigForm() {
-            try {
-                cfgData = await api('GET', '/api/admin/config');
-                document.getElementById('cfg-num-blocks').value = cfgData.NUM_BLOCKS;
-                document.getElementById('cfg-go-per-block').value = cfgData.GO_PER_BLOCK;
-                document.getElementById('cfg-nogo-per-block').value = cfgData.NOGO_PER_BLOCK;
-                document.getElementById('cfg-trials-per-block').value =
-                    cfgData.GO_PER_BLOCK + cfgData.NOGO_PER_BLOCK;
-
-                trialTypes = [...(cfgData.BLOCK_TRIAL_TYPES || [])];
-                renderTrialGrid();
-
-                document.getElementById('cfg-stim-delays').value =
-                    (cfgData.BLOCK_STIM_DELAYS || []).join(', ');
-                document.getElementById('cfg-prompt-delays').value =
-                    (cfgData.BLOCK_PROMPT_DELAYS || []).join(', ');
-
-                document.getElementById('practice-tbody').innerHTML = '';
-                (cfgData.PRACTICE_SEQUENCE || []).forEach(t => addPracticeRow(t));
-
-                // Task behavior fields
-                document.getElementById('cfg-tutorial-enabled').checked = cfgData.TUTORIAL_ENABLED !== false;
-                document.getElementById('cfg-practice-enabled').checked = cfgData.PRACTICE_ENABLED !== false; 
-                document.getElementById('cfg-nogo-hold-duration').value = cfgData.NOGO_HOLD_DURATION || 5000;
-                document.getElementById('cfg-go-response-window').value = cfgData.GO_RESPONSE_WINDOW || 2500;
-                document.getElementById('cfg-pending-prompt-text').value = cfgData.PENDING_PROMPT_TEXT || 'Hold...';
-                document.getElementById('cfg-skip-late-release').checked = !!cfgData.SKIP_ON_LATE_RELEASE;
-                document.getElementById('cfg-show-error-late-release').checked = cfgData.SHOW_ERROR_LATE_RELEASE !== false;
-                document.getElementById('cfg-skip-failed-inhibition').checked = !!cfgData.SKIP_ON_FAILED_INHIBITION;
-                document.getElementById('cfg-show-error-failed-inhibition').checked = cfgData.SHOW_ERROR_FAILED_INHIBITION !== false;
-                document.getElementById('cfg-multitouch-enabled').checked = !!cfgData.MULTITOUCH_ENABLED;
-                document.getElementById('cfg-multitouch-message').value = cfgData.MULTITOUCH_MESSAGE || 'Please use only one finger on the screen.';
-                document.getElementById('cfg-go-prompt-text').value = cfgData.GO_PROMPT_TEXT || 'LIFT';
-                document.getElementById('cfg-go-recontact-prompt-text').value = cfgData.GO_RECONTACT_PROMPT_TEXT || 'HOLD';
-                document.getElementById('cfg-nogo-prompt-text').value = cfgData.NOGO_PROMPT_TEXT || 'HOLD';
-                updateSubToggleVisibility();
-
-                loadInstructionFields(cfgData.INSTRUCTION_TEXTS || {});
-            } catch (e) {
-                console.error('Failed to load config:', e);
-            }
-        }
-
-        async function saveConfig() {
-            const numBlocks = parseInt(document.getElementById('cfg-num-blocks').value);
-            const goPerBlock = parseInt(document.getElementById('cfg-go-per-block').value);
-            const nogoPerBlock = parseInt(document.getElementById('cfg-nogo-per-block').value);
-            const trialsPerBlock = goPerBlock + nogoPerBlock;
-
-            const stimDelays = parseArray(document.getElementById('cfg-stim-delays').value);
-            const promptDelays = parseArray(document.getElementById('cfg-prompt-delays').value);
-
-            // Validate
-            let valid = true;
-
-            const goCount = trialTypes.filter(t => t === 'go').length;
-            const nogoCount = trialTypes.filter(t => t === 'nogo').length;
-            if (trialTypes.length !== trialsPerBlock || goCount !== goPerBlock || nogoCount !== nogoPerBlock) {
-                showError('trial-type-error',
-                    `Trial sequence must have exactly ${trialsPerBlock} entries: ${goPerBlock} LIFT and ${nogoPerBlock} HOLD.`);
-                valid = false;
-            } else { showError('trial-type-error', ''); }
-
-            if (stimDelays.length !== trialsPerBlock) {
-                showError('stim-delay-error',
-                    `Must have exactly ${trialsPerBlock} values (one per trial position). Found ${stimDelays.length}.`);
-                valid = false;
-            } else { showError('stim-delay-error', ''); }
-
-            if (promptDelays.length !== trialsPerBlock) {
-                showError('prompt-delay-error',
-                    `Must have exactly ${trialsPerBlock} values (one per trial position). Found ${promptDelays.length}.`);
-                valid = false;
-            } else { showError('prompt-delay-error', ''); }
-
-            if (!valid) return;
-
-            const cfg = {
-                NUM_BLOCKS: numBlocks,
-                GO_PER_BLOCK: goPerBlock,
-                NOGO_PER_BLOCK: nogoPerBlock,
-                BLOCK_TRIAL_TYPES: trialTypes,
-                BLOCK_STIM_DELAYS: stimDelays,
-                BLOCK_PROMPT_DELAYS: promptDelays,
-                BLOCK_X_FACTORS: cfgData ? cfgData.BLOCK_X_FACTORS : [],
-                BLOCK_Y_FACTORS: cfgData ? cfgData.BLOCK_Y_FACTORS : [],
-                PRACTICE_SEQUENCE: getPracticeSequence(),
-                TUTORIAL_ENABLED: document.getElementById('cfg-tutorial-enabled').checked,
-                PRACTICE_ENABLED: document.getElementById('cfg-practice-enabled').checked, 
-                NOGO_HOLD_DURATION: parseInt(document.getElementById('cfg-nogo-hold-duration').value) || 5000,
-                GO_RESPONSE_WINDOW: parseInt(document.getElementById('cfg-go-response-window').value) || 2500,
-                PENDING_PROMPT_TEXT: document.getElementById('cfg-pending-prompt-text').value || 'Hold...',
-                SKIP_ON_LATE_RELEASE: document.getElementById('cfg-skip-late-release').checked,
-                SHOW_ERROR_LATE_RELEASE: document.getElementById('cfg-show-error-late-release').checked,
-                SKIP_ON_FAILED_INHIBITION: document.getElementById('cfg-skip-failed-inhibition').checked,
-                SHOW_ERROR_FAILED_INHIBITION: document.getElementById('cfg-show-error-failed-inhibition').checked,
-                MULTITOUCH_ENABLED: document.getElementById('cfg-multitouch-enabled').checked,
-                MULTITOUCH_MESSAGE: document.getElementById('cfg-multitouch-message').value || 'Please use only one finger on the screen.',
-                GO_PROMPT_TEXT: document.getElementById('cfg-go-prompt-text').value || 'LIFT',
-                GO_RECONTACT_PROMPT_TEXT: document.getElementById('cfg-go-recontact-prompt-text').value || 'HOLD',
-                NOGO_PROMPT_TEXT: document.getElementById('cfg-nogo-prompt-text').value || 'HOLD',
-                INSTRUCTION_TEXTS: getInstructionTexts()
-            };
-
-            const statusEl = document.getElementById('config-status');
-            statusEl.className = 'save-status';
-            statusEl.textContent = 'Saving…';
-
-            try {
-                await api('POST', '/api/admin/config', cfg);
-                cfgData = cfg;
-                statusEl.className = 'save-status ok';
-                statusEl.textContent = 'Saved.';
-                setTimeout(() => { statusEl.textContent = ''; }, 3000);
-            } catch (e) {
-                statusEl.className = 'save-status err';
-                statusEl.textContent = e.message;
-            }
-        }
-
-        // ═══ RESULTS ════════════════════════════════════════════════
-
-        let allParticipantData = [];
-        let currentPid = null;
-        let dashPhase = 'both';
-
-        async function loadParticipants() {
-            const tbody = document.getElementById('participant-tbody');
-            try {
-                const rows = await api('GET', '/api/admin/participants');
-                if (!rows.length) {
-                    tbody.innerHTML = '<tr class="loading-row"><td colspan="7">No participants yet.</td></tr>';
-                    return;
-                }
-                tbody.innerHTML = rows.map(r => `
+        tbody.innerHTML = rows.map(r => `
             <tr onclick="loadParticipantDashboard(${r.pid})" data-pid="${r.pid}">
                 <td>${r.pid}</td>
                 <td>${r.session_date ? new Date(r.session_date).toLocaleDateString() : '—'}</td>
@@ -1918,216 +1521,216 @@
                 <td><button class="view-btn">View</button></td>
             </tr>
         `).join('');
-            } catch (e) {
-                tbody.innerHTML = `<tr class="loading-row"><td colspan="7">Error: ${e.message}</td></tr>`;
-            }
-        }
+    } catch (e) {
+        tbody.innerHTML = `<tr class="loading-row"><td colspan="7">Error: ${e.message}</td></tr>`;
+    }
+}
 
-        async function loadParticipantDashboard(pid) {
-            // Highlight selected row
-            document.querySelectorAll('#participant-tbody tr').forEach(tr => {
-                tr.classList.toggle('selected', parseInt(tr.dataset.pid) === pid);
-            });
+async function loadParticipantDashboard(pid) {
+    // Highlight selected row
+    document.querySelectorAll('#participant-tbody tr').forEach(tr => {
+        tr.classList.toggle('selected', parseInt(tr.dataset.pid) === pid);
+    });
 
-            currentPid = pid;
-            dashPhase = 'both';
-            document.querySelectorAll('.phase-toggle button').forEach((b, i) => {
-                b.classList.toggle('active', i === 0);
-            });
+    currentPid = pid;
+    dashPhase  = 'both';
+    document.querySelectorAll('.phase-toggle button').forEach((b, i) => {
+        b.classList.toggle('active', i === 0);
+    });
 
-            const dash = document.getElementById('participant-dashboard');
-            dash.style.display = 'block';
-            document.getElementById('dash-pid-label').textContent = pid;
+    const dash = document.getElementById('participant-dashboard');
+    dash.style.display = 'block';
+    document.getElementById('dash-pid-label').textContent = pid;
 
-            try {
-                allParticipantData = await api('GET', `/api/admin/participant/${pid}`);
-                document.getElementById('btn-download-pid').style.display = 'inline-block';
-                renderDashboard();
-            } catch (e) {
-                console.error('Failed to load participant data:', e);
-            }
-        }
+    try {
+        allParticipantData = await api('GET', `/api/admin/participant/${pid}`);
+        document.getElementById('btn-download-pid').style.display = 'inline-block';
+        renderDashboard();
+    } catch (e) {
+        console.error('Failed to load participant data:', e);
+    }
+}
 
-        function setDashPhase(phase) {
-            dashPhase = phase;
-            const labels = ['both', 'practice', 'real'];
-            document.querySelectorAll('.phase-toggle button').forEach((b, i) => {
-                b.classList.toggle('active', labels[i] === phase);
-            });
-            renderDashboard();
-        }
+function setDashPhase(phase) {
+    dashPhase = phase;
+    const labels = ['both', 'practice', 'real'];
+    document.querySelectorAll('.phase-toggle button').forEach((b, i) => {
+        b.classList.toggle('active', labels[i] === phase);
+    });
+    renderDashboard();
+}
 
-        function getFilteredData() {
-            if (dashPhase === 'both') return allParticipantData;
-            if (dashPhase === 'practice') return allParticipantData.filter(d => d.phase === 'Practice');
-            return allParticipantData.filter(d => d.phase === 'Real Study');
-        }
+function getFilteredData() {
+    if (dashPhase === 'both')     return allParticipantData;
+    if (dashPhase === 'practice') return allParticipantData.filter(d => d.phase === 'Practice');
+    return allParticipantData.filter(d => d.phase === 'Real Study');
+}
 
-        function renderDashboard() {
-            const data = getFilteredData();
-            renderStats(data);
-            renderCharts(data);
-            renderDataTable(data);
-        }
+function renderDashboard() {
+    const data = getFilteredData();
+    renderStats(data);
+    renderCharts(data);
+    renderDataTable(data);
+}
 
-        // ── Stats ──
-        function renderStats(data) {
-            const trials = data.filter(d => d.trialType !== 'pending');
-            const uniqueTrials = [...new Set(trials.map(d => `${d.phase}-${d.trialIndex}`))].length;
+// ── Stats ──
+function renderStats(data) {
+    const trials = data.filter(d => d.trialType !== 'pending');
+    const uniqueTrials = [...new Set(trials.map(d => `${d.phase}-${d.trialIndex}`))].length;
 
-            const correct = trials.filter(d => d.isCorrect).length;
-            const accuracy = trials.length ? (correct / trials.length) * 100 : null;
+    const correct = trials.filter(d => d.isCorrect).length;
+    const accuracy = trials.length ? (correct / trials.length) * 100 : null;
 
-            const goTrials = trials.filter(d => d.trialType === 'go');
-            const nogoTrials = trials.filter(d => d.trialType === 'nogo');
-            const goAcc = goTrials.length ? goTrials.filter(d => d.isCorrect).length / goTrials.length * 100 : null;
-            const nogoAcc = nogoTrials.length ? nogoTrials.filter(d => d.isCorrect).length / nogoTrials.length * 100 : null;
+    const goTrials   = trials.filter(d => d.trialType === 'go');
+    const nogoTrials = trials.filter(d => d.trialType === 'nogo');
+    const goAcc   = goTrials.length   ? goTrials.filter(d => d.isCorrect).length   / goTrials.length   * 100 : null;
+    const nogoAcc = nogoTrials.length ? nogoTrials.filter(d => d.isCorrect).length / nogoTrials.length * 100 : null;
 
-            const slips = data.filter(d => d.resultType === 'Slip Recorded').length;
-            const earlyRelease = data.filter(d => d.errorCategory === 'Early Release').length;
-            const anticipatory = data.filter(d => d.errorCategory === 'Anticipatory Press').length;
+    const slips        = data.filter(d => d.resultType === 'Slip Recorded').length;
+    const earlyRelease = data.filter(d => d.errorCategory === 'Early Release').length;
+    const anticipatory = data.filter(d => d.errorCategory === 'Anticipatory Press').length;
 
-            const rtReleaseVals = data.filter(d => d.trialType === 'go' && d.rtRelease != null).map(d => d.rtRelease);
-            const rtDownVals = data.filter(d => d.trialType === 'go' && d.rtDown != null).map(d => d.rtDown);
-            const respTimeVals = data.filter(d => d.responseTime != null).map(d => d.responseTime);
-            const slipDurVals = data.filter(d => d.slipDuration != null).map(d => d.slipDuration);
+    const rtReleaseVals  = data.filter(d => d.trialType === 'go' && d.rtRelease  != null).map(d => d.rtRelease);
+    const rtDownVals     = data.filter(d => d.trialType === 'go' && d.rtDown     != null).map(d => d.rtDown);
+    const respTimeVals   = data.filter(d => d.responseTime  != null).map(d => d.responseTime);
+    const slipDurVals    = data.filter(d => d.slipDuration  != null).map(d => d.slipDuration);
 
-            const fmt = (arr, dec = 0) => arr.length ? mean(arr).toFixed(dec) + ' ms' : '—';
+    const fmt = (arr, dec = 0) => arr.length ? mean(arr).toFixed(dec) + ' ms' : '—';
 
-            set('d-total', uniqueTrials || '—');
-            set('d-accuracy', accuracy != null ? accuracy.toFixed(1) + '%' : '—');
-            set('d-go-acc', goAcc != null ? goAcc.toFixed(1) + '%' : '—');
-            set('d-nogo-acc', nogoAcc != null ? nogoAcc.toFixed(1) + '%' : '—');
-            set('d-early', earlyRelease);
-            set('d-anticipatory', anticipatory);
-            set('d-slips', slips);
-            set('d-mean-rt', fmt(rtReleaseVals));
-            set('d-median-rt', rtReleaseVals.length ? median(rtReleaseVals).toFixed(0) + ' ms' : '—');
-            set('d-sd-rt', rtReleaseVals.length ? stddev(rtReleaseVals).toFixed(1) + ' ms' : '—');
-            set('d-mean-rtdown', fmt(rtDownVals));
-            set('d-mean-resp', fmt(respTimeVals));
-            set('d-mean-slip', slipDurVals.length ? fmt(slipDurVals) : '—');
-        }
+    set('d-total',       uniqueTrials || '—');
+    set('d-accuracy',    accuracy  != null ? accuracy.toFixed(1)  + '%' : '—');
+    set('d-go-acc',      goAcc     != null ? goAcc.toFixed(1)     + '%' : '—');
+    set('d-nogo-acc',    nogoAcc   != null ? nogoAcc.toFixed(1)   + '%' : '—');
+    set('d-early',       earlyRelease);
+    set('d-anticipatory', anticipatory);
+    set('d-slips',       slips);
+    set('d-mean-rt',     fmt(rtReleaseVals));
+    set('d-median-rt',   rtReleaseVals.length ? median(rtReleaseVals).toFixed(0) + ' ms' : '—');
+    set('d-sd-rt',       rtReleaseVals.length ? stddev(rtReleaseVals).toFixed(1) + ' ms' : '—');
+    set('d-mean-rtdown', fmt(rtDownVals));
+    set('d-mean-resp',   fmt(respTimeVals));
+    set('d-mean-slip',   slipDurVals.length ? fmt(slipDurVals) : '—');
+}
 
-        function set(id, val) {
-            const el = document.getElementById(id);
-            if (el) el.textContent = val;
-        }
+function set(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+}
 
-        // ── Math helpers ──
-        function mean(arr) { return arr.reduce((a, b) => a + b, 0) / arr.length; }
-        function median(arr) {
-            const s = [...arr].sort((a, b) => a - b);
-            const m = Math.floor(s.length / 2);
-            return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
-        }
-        function stddev(arr) {
-            const m = mean(arr);
-            return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / arr.length);
-        }
+// ── Math helpers ──
+function mean(arr) { return arr.reduce((a, b) => a + b, 0) / arr.length; }
+function median(arr) {
+    const s = [...arr].sort((a, b) => a - b);
+    const m = Math.floor(s.length / 2);
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+function stddev(arr) {
+    const m = mean(arr);
+    return Math.sqrt(arr.reduce((a, b) => a + (b - m) ** 2, 0) / arr.length);
+}
 
-        // ── Charts ──
-        const PCFG = { displayModeBar: false, responsive: true };
-        const PBASE = {
-            paper_bgcolor: 'transparent', plot_bgcolor: 'transparent',
-            font: { family: 'DM Sans, sans-serif', size: 11, color: '#6b6b66' },
-            margin: { t: 12, r: 16, b: 40, l: 52 },
-            xaxis: { gridcolor: '#e5e5e2', linecolor: '#d0d0cc', tickcolor: '#d0d0cc', zeroline: false },
-            yaxis: { gridcolor: '#e5e5e2', linecolor: '#d0d0cc', tickcolor: '#d0d0cc', zeroline: false },
-            legend: { bgcolor: 'transparent', borderwidth: 0 }
+// ── Charts ──
+const PCFG = { displayModeBar: false, responsive: true };
+const PBASE = {
+    paper_bgcolor: 'transparent', plot_bgcolor: 'transparent',
+    font: { family: 'DM Sans, sans-serif', size: 11, color: '#6b6b66' },
+    margin: { t: 12, r: 16, b: 40, l: 52 },
+    xaxis: { gridcolor: '#e5e5e2', linecolor: '#d0d0cc', tickcolor: '#d0d0cc', zeroline: false },
+    yaxis: { gridcolor: '#e5e5e2', linecolor: '#d0d0cc', tickcolor: '#d0d0cc', zeroline: false },
+    legend: { bgcolor: 'transparent', borderwidth: 0 }
+};
+
+function layout(o = {}) {
+    return Object.assign({}, PBASE, o, {
+        xaxis: Object.assign({}, PBASE.xaxis, o.xaxis || {}),
+        yaxis: Object.assign({}, PBASE.yaxis, o.yaxis || {})
+    });
+}
+
+function empty(id) {
+    document.getElementById(id).innerHTML = '<div class="empty-state">Not enough data</div>';
+}
+
+function renderCharts(data) {
+    // RT-Release histogram
+    const rtVals = data.filter(d => d.trialType === 'go' && d.rtRelease != null).map(d => d.rtRelease);
+    if (rtVals.length >= 2) {
+        Plotly.newPlot('d-chart-rt-hist', [{
+            x: rtVals, type: 'histogram',
+            marker: { color: '#1a1a18', opacity: 0.75 }, xbins: { size: 50 }
+        }], layout({ height: 180, xaxis: { title: 'ms', rangemode: 'tozero' }, yaxis: { title: 'Count', rangemode: 'tozero' } }), PCFG);
+    } else { empty('d-chart-rt-hist'); }
+
+    // RT-Down histogram
+    const rtDownVals = data.filter(d => d.rtDown != null).map(d => d.rtDown);
+    if (rtDownVals.length >= 2) {
+        Plotly.newPlot('d-chart-rtdown-hist', [{
+            x: rtDownVals, type: 'histogram',
+            marker: { color: '#2563eb', opacity: 0.65 }, xbins: { size: 50 }
+        }], layout({ height: 180, xaxis: { title: 'ms', rangemode: 'tozero' }, yaxis: { title: 'Count', rangemode: 'tozero' } }), PCFG);
+    } else { empty('d-chart-rtdown-hist'); }
+
+    // RT over trials
+    const phaseColors = { 'Practice': '#9b9b96', 'Real Study': '#1a1a18' };
+    const phases = dashPhase === 'both' ? ['Practice', 'Real Study']
+        : dashPhase === 'practice' ? ['Practice'] : ['Real Study'];
+
+    const traces = phases.map(ph => {
+        const rows = data.filter(d => d.phase === ph && d.trialType === 'go' && d.rtRelease != null);
+        return {
+            x: rows.map(d => d.trialIndex), y: rows.map(d => d.rtRelease),
+            mode: 'lines+markers', name: ph,
+            line: { color: phaseColors[ph], width: 1.5 },
+            marker: { color: phaseColors[ph], size: 6 }
         };
+    }).filter(t => t.x.length);
 
-        function layout(o = {}) {
-            return Object.assign({}, PBASE, o, {
-                xaxis: Object.assign({}, PBASE.xaxis, o.xaxis || {}),
-                yaxis: Object.assign({}, PBASE.yaxis, o.yaxis || {})
-            });
-        }
+    if (traces.length) {
+        Plotly.newPlot('d-chart-rt-trial', traces, layout({
+            height: 220,
+            xaxis: { title: 'Trial', rangemode: 'tozero' },
+            yaxis: { title: 'RT-Release (ms)', rangemode: 'tozero' }
+        }), PCFG);
+    } else { empty('d-chart-rt-trial'); }
 
-        function empty(id) {
-            document.getElementById(id).innerHTML = '<div class="empty-state">Not enough data</div>';
-        }
+    // Phase box
+    const practiceRTs = allParticipantData.filter(d => d.phase === 'Practice' && d.rtRelease != null).map(d => d.rtRelease);
+    const realRTs     = allParticipantData.filter(d => d.phase === 'Real Study' && d.rtRelease != null).map(d => d.rtRelease);
+    const boxTraces   = [];
+    if (practiceRTs.length) boxTraces.push({ y: practiceRTs, type: 'box', name: 'Practice', marker: { color: '#9b9b96' }, line: { color: '#9b9b96' }, fillcolor: 'rgba(155,155,150,0.15)' });
+    if (realRTs.length)     boxTraces.push({ y: realRTs,     type: 'box', name: 'Real Study', marker: { color: '#1a1a18' }, line: { color: '#1a1a18' }, fillcolor: 'rgba(26,26,24,0.12)' });
+    if (boxTraces.length) {
+        Plotly.newPlot('d-chart-phase-box', boxTraces, layout({ height: 200, yaxis: { title: 'RT-Release (ms)', rangemode: 'tozero' } }), PCFG);
+    } else { empty('d-chart-phase-box'); }
 
-        function renderCharts(data) {
-            // RT-Release histogram
-            const rtVals = data.filter(d => d.trialType === 'go' && d.rtRelease != null).map(d => d.rtRelease);
-            if (rtVals.length >= 2) {
-                Plotly.newPlot('d-chart-rt-hist', [{
-                    x: rtVals, type: 'histogram',
-                    marker: { color: '#1a1a18', opacity: 0.75 }, xbins: { size: 50 }
-                }], layout({ height: 180, xaxis: { title: 'ms', rangemode: 'tozero' }, yaxis: { title: 'Count', rangemode: 'tozero' } }), PCFG);
-            } else { empty('d-chart-rt-hist'); }
+    // Accuracy by phase
+    const phaseLabels = ['Practice', 'Real Study'];
+    const accs = phaseLabels.map(ph => {
+        const pd = allParticipantData.filter(d => d.phase === ph && d.trialType !== 'pending');
+        return pd.length ? (pd.filter(d => d.isCorrect).length / pd.length) * 100 : 0;
+    });
+    Plotly.newPlot('d-chart-phase-acc', [{
+        x: phaseLabels, y: accs, type: 'bar',
+        marker: { color: ['#9b9b96', '#1a1a18'] }
+    }], layout({ height: 200, yaxis: { title: 'Accuracy (%)', range: [0, 105] } }), PCFG);
+}
 
-            // RT-Down histogram
-            const rtDownVals = data.filter(d => d.rtDown != null).map(d => d.rtDown);
-            if (rtDownVals.length >= 2) {
-                Plotly.newPlot('d-chart-rtdown-hist', [{
-                    x: rtDownVals, type: 'histogram',
-                    marker: { color: '#2563eb', opacity: 0.65 }, xbins: { size: 50 }
-                }], layout({ height: 180, xaxis: { title: 'ms', rangemode: 'tozero' }, yaxis: { title: 'Count', rangemode: 'tozero' } }), PCFG);
-            } else { empty('d-chart-rtdown-hist'); }
-
-            // RT over trials
-            const phaseColors = { 'Practice': '#9b9b96', 'Real Study': '#1a1a18' };
-            const phases = dashPhase === 'both' ? ['Practice', 'Real Study']
-                : dashPhase === 'practice' ? ['Practice'] : ['Real Study'];
-
-            const traces = phases.map(ph => {
-                const rows = data.filter(d => d.phase === ph && d.trialType === 'go' && d.rtRelease != null);
-                return {
-                    x: rows.map(d => d.trialIndex), y: rows.map(d => d.rtRelease),
-                    mode: 'lines+markers', name: ph,
-                    line: { color: phaseColors[ph], width: 1.5 },
-                    marker: { color: phaseColors[ph], size: 6 }
-                };
-            }).filter(t => t.x.length);
-
-            if (traces.length) {
-                Plotly.newPlot('d-chart-rt-trial', traces, layout({
-                    height: 220,
-                    xaxis: { title: 'Trial', rangemode: 'tozero' },
-                    yaxis: { title: 'RT-Release (ms)', rangemode: 'tozero' }
-                }), PCFG);
-            } else { empty('d-chart-rt-trial'); }
-
-            // Phase box
-            const practiceRTs = allParticipantData.filter(d => d.phase === 'Practice' && d.rtRelease != null).map(d => d.rtRelease);
-            const realRTs = allParticipantData.filter(d => d.phase === 'Real Study' && d.rtRelease != null).map(d => d.rtRelease);
-            const boxTraces = [];
-            if (practiceRTs.length) boxTraces.push({ y: practiceRTs, type: 'box', name: 'Practice', marker: { color: '#9b9b96' }, line: { color: '#9b9b96' }, fillcolor: 'rgba(155,155,150,0.15)' });
-            if (realRTs.length) boxTraces.push({ y: realRTs, type: 'box', name: 'Real Study', marker: { color: '#1a1a18' }, line: { color: '#1a1a18' }, fillcolor: 'rgba(26,26,24,0.12)' });
-            if (boxTraces.length) {
-                Plotly.newPlot('d-chart-phase-box', boxTraces, layout({ height: 200, yaxis: { title: 'RT-Release (ms)', rangemode: 'tozero' } }), PCFG);
-            } else { empty('d-chart-phase-box'); }
-
-            // Accuracy by phase
-            const phaseLabels = ['Practice', 'Real Study'];
-            const accs = phaseLabels.map(ph => {
-                const pd = allParticipantData.filter(d => d.phase === ph && d.trialType !== 'pending');
-                return pd.length ? (pd.filter(d => d.isCorrect).length / pd.length) * 100 : 0;
-            });
-            Plotly.newPlot('d-chart-phase-acc', [{
-                x: phaseLabels, y: accs, type: 'bar',
-                marker: { color: ['#9b9b96', '#1a1a18'] }
-            }], layout({ height: 200, yaxis: { title: 'Accuracy (%)', range: [0, 105] } }), PCFG);
-        }
-
-        // ── Data table ──
-        function renderDataTable(data) {
-            const tbody = document.getElementById('d-table-body');
-            tbody.innerHTML = data.map(d => {
-                const isSlip = d.resultType === 'Slip Recorded';
-                const isAntic = d.errorCategory === 'Anticipatory Press';
-                const typeTag = d.trialType === 'go'
-                    ? '<span class="tag tag-go">LIFT</span>'
-                    : d.trialType === 'nogo'
-                        ? '<span class="tag tag-nogo">HOLD</span>'
-                        : `<span class="tag">${d.trialType}</span>`;
-                const correctTag = isSlip ? '<span class="tag tag-slip">slip</span>'
-                    : isAntic ? '<span class="tag tag-slip">anticipatory</span>'
-                        : d.isCorrect ? '<span class="tag tag-yes">yes</span>'
-                            : '<span class="tag tag-no">no</span>';
-                return `<tr>
+// ── Data table ──
+function renderDataTable(data) {
+    const tbody = document.getElementById('d-table-body');
+    tbody.innerHTML = data.map(d => {
+        const isSlip = d.resultType === 'Slip Recorded';
+        const isAntic = d.errorCategory === 'Anticipatory Press';
+        const typeTag = d.trialType === 'go'
+            ? '<span class="tag tag-go">LIFT</span>'
+            : d.trialType === 'nogo'
+                ? '<span class="tag tag-nogo">HOLD</span>'
+                : `<span class="tag">${d.trialType}</span>`;
+        const correctTag = isSlip ? '<span class="tag tag-slip">slip</span>'
+            : isAntic ? '<span class="tag tag-slip">anticipatory</span>'
+            : d.isCorrect ? '<span class="tag tag-yes">yes</span>'
+            : '<span class="tag tag-no">no</span>';
+        return `<tr>
             <td>${d.phase}</td>
             <td>${d.blockNumber != null ? d.blockNumber : '—'}</td>
             <td>${d.trialIndex}</td>
@@ -2147,290 +1750,289 @@
             <td>${d.touchY != null ? d.touchY : '—'}</td>
             <td>${d.timestamp ? new Date(d.timestamp).toLocaleString() : '—'}</td>
         </tr>`;
-            }).join('');
+    }).join('');
+}
+
+// ═══ SUB-TOGGLE VISIBILITY ═════════════════════════════════
+function updateSubToggleVisibility() {
+    const skipLR = document.getElementById('cfg-skip-late-release').checked;
+    document.getElementById('row-show-error-late-release').style.display = skipLR ? 'flex' : 'none';
+
+    const skipFI = document.getElementById('cfg-skip-failed-inhibition').checked;
+    document.getElementById('row-show-error-failed-inhibition').style.display = skipFI ? 'flex' : 'none';
+
+    const mt = document.getElementById('cfg-multitouch-enabled').checked;
+    document.getElementById('row-multitouch-message').style.display = mt ? 'block' : 'none';
+}
+
+document.getElementById('cfg-skip-late-release').addEventListener('change', updateSubToggleVisibility);
+document.getElementById('cfg-skip-failed-inhibition').addEventListener('change', updateSubToggleVisibility);
+document.getElementById('cfg-multitouch-enabled').addEventListener('change', updateSubToggleVisibility);
+
+// ═══ CSV DOWNLOAD ══════════════════════════════════════════
+function downloadAllCSV() {
+    fetch('/api/admin/export-csv', { headers: { 'X-Admin-Token': TOKEN } })
+    .then(res => {
+        if (!res.ok) throw new Error('Download failed');
+        return res.blob();
+    })
+    .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'halt-all-participants.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+    })
+    .catch(e => console.error('CSV download error:', e));
+}
+
+function downloadPidCSV() {
+    if (!currentPid) return;
+    fetch(`/api/admin/participant/${currentPid}/csv`, { headers: { 'X-Admin-Token': TOKEN } })
+    .then(res => {
+        if (!res.ok) throw new Error('Download failed');
+        return res.blob();
+    })
+    .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `halt-pid-${currentPid}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    })
+    .catch(e => console.error('CSV download error:', e));
+}
+
+// ═══ INSTRUCTION TEXT EDITOR ══════════════════════════════
+
+// Defaults — used to pre-fill any missing/empty fields when loading config
+const DEFAULT_INSTRUCTION_TEXTS = {
+    overview: {
+        title: 'Welcome',
+        message: 'In this task you\'ll press and hold a blue circle on the screen. A prompt will appear above the circle telling you what to do. There are two types of trials: <strong>LIFT</strong> and <strong>HOLD</strong>. We\'ll walk through both with examples.',
+        buttonText: 'Continue'
+    },
+    go: {
+        title: 'LIFT Trials',
+        message: 'When you see <strong>"LIFT"</strong>, lift your finger off the circle as quickly as you can. Then wait for the <strong>"HOLD"</strong> prompt and press the circle again.',
+        buttonText: 'I Understand'
+    },
+    noGo: {
+        title: 'HOLD Trials',
+        message: 'When you see <strong>"HOLD"</strong>, keep holding the circle. Do NOT lift your finger.',
+        buttonText: 'I Understand'
+    },
+    complete: {
+        title: 'You\'re Ready',
+        message: 'Great work! You now know both <strong>LIFT</strong> and <strong>HOLD</strong> trials. The main task starts next.',
+        buttonText: 'Start Main Task'
+    },
+    static: {
+        title: 'How This Task Works',
+        body: '<p class="text-lg mb-4">You\'ll press and hold a blue circle on the screen.</p><p class="text-lg mb-4">When <strong>"LIFT"</strong> appears, lift your finger off the button as quickly as possible. Then wait for a prompt before pressing the circle again.</p><p class="text-lg mb-4">When <strong>"HOLD"</strong> appears, keep holding the circle. Do NOT lift your finger.</p><p class="text-lg mb-8">React as fast as you can while following the correct instruction.</p>',
+        buttonText: 'Got it!'
+    }
+};
+
+function loadInstructionFields(texts) {
+    const t = texts || {};
+    const D = DEFAULT_INSTRUCTION_TEXTS;
+    // Merge: use saved value if present, otherwise fall back to default
+    const pick = (group, key) => ((t[group] || {})[key]) || D[group][key] || '';
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+
+    set('instr-overview-title',    pick('overview', 'title'));
+    set('instr-overview-message',  pick('overview', 'message'));
+    set('instr-overview-btn',      pick('overview', 'buttonText'));
+    set('instr-go-title',          pick('go',       'title'));
+    set('instr-go-message',        pick('go',       'message'));
+    set('instr-go-btn',            pick('go',       'buttonText'));
+    set('instr-nogo-title',        pick('noGo',     'title'));
+    set('instr-nogo-message',      pick('noGo',     'message'));
+    set('instr-nogo-btn',          pick('noGo',     'buttonText'));
+    set('instr-complete-title',    pick('complete', 'title'));
+    set('instr-complete-message',  pick('complete', 'message'));
+    set('instr-complete-btn',      pick('complete', 'buttonText'));
+    set('instr-static-title',      pick('static',   'title'));
+    set('instr-static-body',       pick('static',   'body'));
+    set('instr-static-btn',        pick('static',   'buttonText'));
+
+    // Populate all previews
+    ['overview-message', 'go-message', 'nogo-message', 'complete-message', 'static-body'].forEach(key => {
+        updatePreview(key, 'preview-' + key);
+    });
+}
+
+function getInstructionTexts() {
+    const val = id => (document.getElementById(id) || {}).value || '';
+    return {
+        overview: { title: val('instr-overview-title'), message: val('instr-overview-message'), buttonText: val('instr-overview-btn') },
+        go:       { title: val('instr-go-title'),       message: val('instr-go-message'),       buttonText: val('instr-go-btn') },
+        noGo:     { title: val('instr-nogo-title'),     message: val('instr-nogo-message'),     buttonText: val('instr-nogo-btn') },
+        complete: { title: val('instr-complete-title'), message: val('instr-complete-message'), buttonText: val('instr-complete-btn') },
+        static:   { title: val('instr-static-title'),   body: val('instr-static-body'),         buttonText: val('instr-static-btn') }
+    };
+}
+
+// Live HTML preview — renders the raw HTML value into the preview div
+function updatePreview(sourceId, previewId) {
+    const src = document.getElementById('instr-' + sourceId);
+    const prev = document.getElementById(previewId);
+    if (src && prev) prev.innerHTML = src.value;
+}
+
+// ═══ AUTH FLOW ═════════════════════════════════════════════
+let AUTH_MODE = 'login'; // 'login' or 'setup'
+
+async function initAuth() {
+    try {
+        const { hasPassword } = await fetch('/api/admin/has-password').then(r => r.json());
+        AUTH_MODE = hasPassword ? 'login' : 'setup';
+
+        if (AUTH_MODE === 'setup') {
+            document.getElementById('auth-title').textContent = 'Create Admin Password';
+            document.getElementById('auth-subtitle').textContent = 'First-time setup. Choose a password (minimum 8 characters).';
+            document.getElementById('auth-password-label').textContent = 'New Password';
+            document.getElementById('auth-confirm-field').style.display = 'block';
+            document.getElementById('auth-submit').textContent = 'Create Password';
         }
 
-        // ═══ SUB-TOGGLE VISIBILITY ═════════════════════════════════
-        function updateSubToggleVisibility() {
-            const skipLR = document.getElementById('cfg-skip-late-release').checked;
-            document.getElementById('row-show-error-late-release').style.display = skipLR ? 'flex' : 'none';
-
-            const skipFI = document.getElementById('cfg-skip-failed-inhibition').checked;
-            document.getElementById('row-show-error-failed-inhibition').style.display = skipFI ? 'flex' : 'none';
-
-            const mt = document.getElementById('cfg-multitouch-enabled').checked;
-            document.getElementById('row-multitouch-message').style.display = mt ? 'block' : 'none';
-        }
-
-        document.getElementById('cfg-skip-late-release').addEventListener('change', updateSubToggleVisibility);
-        document.getElementById('cfg-skip-failed-inhibition').addEventListener('change', updateSubToggleVisibility);
-        document.getElementById('cfg-multitouch-enabled').addEventListener('change', updateSubToggleVisibility);
-
-        // ═══ CSV DOWNLOAD ══════════════════════════════════════════
-        function downloadAllCSV() {
-            fetch('/api/admin/export-csv', { headers: { 'X-Admin-Token': TOKEN } })
-                .then(res => {
-                    if (!res.ok) throw new Error('Download failed');
-                    return res.blob();
-                })
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'halt-all-participants.csv';
-                    a.click();
-                    URL.revokeObjectURL(url);
-                })
-                .catch(e => console.error('CSV download error:', e));
-        }
-
-        function downloadPidCSV() {
-            if (!currentPid) return;
-            fetch(`/api/admin/participant/${currentPid}/csv`, { headers: { 'X-Admin-Token': TOKEN } })
-                .then(res => {
-                    if (!res.ok) throw new Error('Download failed');
-                    return res.blob();
-                })
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `halt-pid-${currentPid}.csv`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                })
-                .catch(e => console.error('CSV download error:', e));
-        }
-
-        // ═══ INSTRUCTION TEXT EDITOR ══════════════════════════════
-
-        // Defaults — used to pre-fill any missing/empty fields when loading config
-        const DEFAULT_INSTRUCTION_TEXTS = {
-            overview: {
-                title: 'How This Task Works',
-                message: 'You\'ll press and hold a blue circle on the screen. You\'ll need to lift your finger when you see <strong>"LIFT"</strong> — then wait for a prompt before pressing again. You\'ll need to keep holding when you see <strong>"HOLD"</strong>.',
-                buttonText: 'Got it, let\'s start!'
-            },
-            go: {
-                title: 'Learning LIFT Trials',
-                message: 'You\'ll see a blue circle on the screen. When the word <strong>"LIFT"</strong> appears above the circle, lift your finger off the button as quickly as possible. Then wait — a prompt will appear saying "HOLD". Press the circle again as fast as you can only when you see that prompt.',
-                buttonText: 'Ready to try it!'
-            },
-            noGo: {
-                title: 'Learning HOLD Trials',
-                message: 'Great job! Now when you see <strong>"HOLD"</strong> appear above the circle, keep holding the circle. Do NOT lift your finger.',
-                buttonText: 'Ready to try it!'
-            },
-            complete: {
-                title: 'Tutorial Complete!',
-                message: 'Excellent work! You now understand both <strong>LIFT</strong> and <strong>HOLD</strong> trials.<br>Ready to start practicing?',
-                buttonText: 'Start Practice'
-            },
-            static: {
-                title: 'How This Task Works',
-                body: '<p class="text-lg mb-4">You\'ll press and hold a blue circle on the screen.</p><p class="text-lg mb-4">When <strong>"LIFT"</strong> appears, lift your finger off the button as quickly as possible. Then wait for a prompt before pressing the circle again.</p><p class="text-lg mb-4">When <strong>"HOLD"</strong> appears, keep holding the circle. Do NOT lift your finger.</p><p class="text-lg mb-8">React as fast as you can while following the correct instruction.</p>',
-                buttonText: 'Got it!'
-            }
-        };
-
-        function loadInstructionFields(texts) {
-            const t = texts || {};
-            const D = DEFAULT_INSTRUCTION_TEXTS;
-            // Merge: use saved value if present, otherwise fall back to default
-            const pick = (group, key) => ((t[group] || {})[key]) || D[group][key] || '';
-            const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
-
-            set('instr-overview-title', pick('overview', 'title'));
-            set('instr-overview-message', pick('overview', 'message'));
-            set('instr-overview-btn', pick('overview', 'buttonText'));
-            set('instr-go-title', pick('go', 'title'));
-            set('instr-go-message', pick('go', 'message'));
-            set('instr-go-btn', pick('go', 'buttonText'));
-            set('instr-nogo-title', pick('noGo', 'title'));
-            set('instr-nogo-message', pick('noGo', 'message'));
-            set('instr-nogo-btn', pick('noGo', 'buttonText'));
-            set('instr-complete-title', pick('complete', 'title'));
-            set('instr-complete-message', pick('complete', 'message'));
-            set('instr-complete-btn', pick('complete', 'buttonText'));
-            set('instr-static-title', pick('static', 'title'));
-            set('instr-static-body', pick('static', 'body'));
-            set('instr-static-btn', pick('static', 'buttonText'));
-
-            // Populate all previews
-            ['overview-message', 'go-message', 'nogo-message', 'complete-message', 'static-body'].forEach(key => {
-                updatePreview(key, 'preview-' + key);
-            });
-        }
-
-        function getInstructionTexts() {
-            const val = id => (document.getElementById(id) || {}).value || '';
-            return {
-                overview: { title: val('instr-overview-title'), message: val('instr-overview-message'), buttonText: val('instr-overview-btn') },
-                go: { title: val('instr-go-title'), message: val('instr-go-message'), buttonText: val('instr-go-btn') },
-                noGo: { title: val('instr-nogo-title'), message: val('instr-nogo-message'), buttonText: val('instr-nogo-btn') },
-                complete: { title: val('instr-complete-title'), message: val('instr-complete-message'), buttonText: val('instr-complete-btn') },
-                static: { title: val('instr-static-title'), body: val('instr-static-body'), buttonText: val('instr-static-btn') }
-            };
-        }
-
-        // Live HTML preview — renders the raw HTML value into the preview div
-        function updatePreview(sourceId, previewId) {
-            const src = document.getElementById('instr-' + sourceId);
-            const prev = document.getElementById(previewId);
-            if (src && prev) prev.innerHTML = src.value;
-        }
-
-        // ═══ AUTH FLOW ═════════════════════════════════════════════
-        let AUTH_MODE = 'login'; // 'login' or 'setup'
-
-        async function initAuth() {
-            try {
-                const { hasPassword } = await fetch('/api/admin/has-password').then(r => r.json());
-                AUTH_MODE = hasPassword ? 'login' : 'setup';
-
-                if (AUTH_MODE === 'setup') {
-                    document.getElementById('auth-title').textContent = 'Create Admin Password';
-                    document.getElementById('auth-subtitle').textContent = 'First-time setup. Choose a password (minimum 8 characters).';
-                    document.getElementById('auth-password-label').textContent = 'New Password';
-                    document.getElementById('auth-confirm-field').style.display = 'block';
-                    document.getElementById('auth-submit').textContent = 'Create Password';
-                }
-
-                // If we already have a token, verify it
-                if (TOKEN) {
-                    const { valid } = await fetch('/api/admin/check', { headers: { 'X-Admin-Token': TOKEN } }).then(r => r.json());
-                    if (valid) {
-                        enterApp();
-                        return;
-                    }
-                    setToken('');
-                }
-
-                showAuthScreen();
-            } catch (e) {
-                document.getElementById('auth-error').textContent = 'Cannot reach server. Please refresh.';
-                showAuthScreen();
-            }
-        }
-
-        function showAuthScreen() {
-            document.getElementById('auth-screen').style.display = 'flex';
-            document.getElementById('admin-panel').style.display = 'none';
-            setTimeout(() => document.getElementById('auth-password').focus(), 100);
-        }
-
-        function enterApp() {
-            document.getElementById('auth-screen').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'block';
-            loadConfigForm();
-            loadParticipants();
-        }
-
-        async function submitAuth() {
-            const pw = document.getElementById('auth-password').value;
-            const err = document.getElementById('auth-error');
-            err.textContent = '';
-
-            if (!pw) { err.textContent = 'Password is required.'; return; }
-
-            const btn = document.getElementById('auth-submit');
-            btn.disabled = true;
-
-            try {
-                if (AUTH_MODE === 'setup') {
-                    const confirm = document.getElementById('auth-password-confirm').value;
-                    if (pw.length < 8) throw new Error('Password must be at least 8 characters.');
-                    if (pw !== confirm) throw new Error('Passwords do not match.');
-                    await fetch('/api/admin/setup', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ password: pw })
-                    }).then(async r => {
-                        const d = await r.json();
-                        if (!r.ok) throw new Error(d.error || 'Setup failed.');
-                    });
-                    // After setup, log in
-                    AUTH_MODE = 'login';
-                }
-                const res = await fetch('/api/admin/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password: pw })
-                });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.error || 'Login failed.');
-                setToken(data.token);
-                document.getElementById('auth-password').value = '';
-                document.getElementById('auth-password-confirm').value = '';
+        // If we already have a token, verify it
+        if (TOKEN) {
+            const { valid } = await fetch('/api/admin/check', { headers: { 'X-Admin-Token': TOKEN } }).then(r => r.json());
+            if (valid) {
                 enterApp();
-            } catch (e) {
-                err.textContent = e.message;
-            } finally {
-                btn.disabled = false;
+                return;
             }
-        }
-
-        // Allow pressing Enter on the password fields to submit
-        document.getElementById('auth-password').addEventListener('keydown', e => {
-            if (e.key === 'Enter') submitAuth();
-        });
-        document.getElementById('auth-password-confirm').addEventListener('keydown', e => {
-            if (e.key === 'Enter') submitAuth();
-        });
-
-        async function logout() {
-            try {
-                await fetch('/api/admin/logout', {
-                    method: 'POST',
-                    headers: { 'X-Admin-Token': TOKEN }
-                });
-            } catch (e) { /* ignore */ }
             setToken('');
-            showAuthScreen();
         }
 
-        // ═══ CHANGE PASSWORD ═══════════════════════════════════════
-        async function changePassword() {
-            const cur = document.getElementById('cfg-current-password');
-            const nw = document.getElementById('cfg-new-password');
-            const cnf = document.getElementById('cfg-confirm-password');
-            const status = document.getElementById('password-status');
-            status.textContent = '';
-            status.style.color = '';
+        showAuthScreen();
+    } catch (e) {
+        document.getElementById('auth-error').textContent = 'Cannot reach server. Please refresh.';
+        showAuthScreen();
+    }
+}
 
-            if (!cur.value || !nw.value || !cnf.value) {
-                status.textContent = 'All fields are required.';
-                status.style.color = '#c1272d';
-                return;
-            }
-            if (nw.value.length < 8) {
-                status.textContent = 'New password must be at least 8 characters.';
-                status.style.color = '#c1272d';
-                return;
-            }
-            if (nw.value !== cnf.value) {
-                status.textContent = 'New passwords do not match.';
-                status.style.color = '#c1272d';
-                return;
-            }
+function showAuthScreen() {
+    document.getElementById('auth-screen').style.display = 'flex';
+    document.getElementById('admin-panel').style.display = 'none';
+    setTimeout(() => document.getElementById('auth-password').focus(), 100);
+}
 
-            try {
-                await api('POST', '/api/admin/password', {
-                    currentPassword: cur.value,
-                    newPassword: nw.value
-                });
-                cur.value = ''; nw.value = ''; cnf.value = '';
-                status.textContent = 'Password updated successfully.';
-                status.style.color = 'var(--accent)';
-            } catch (e) {
-                status.textContent = e.message;
-                status.style.color = '#c1272d';
-            }
+function enterApp() {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    loadConfigForm();
+    loadParticipants();
+}
+
+async function submitAuth() {
+    const pw = document.getElementById('auth-password').value;
+    const err = document.getElementById('auth-error');
+    err.textContent = '';
+
+    if (!pw) { err.textContent = 'Password is required.'; return; }
+
+    const btn = document.getElementById('auth-submit');
+    btn.disabled = true;
+
+    try {
+        if (AUTH_MODE === 'setup') {
+            const confirm = document.getElementById('auth-password-confirm').value;
+            if (pw.length < 8) throw new Error('Password must be at least 8 characters.');
+            if (pw !== confirm) throw new Error('Passwords do not match.');
+            await fetch('/api/admin/setup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: pw })
+            }).then(async r => {
+                const d = await r.json();
+                if (!r.ok) throw new Error(d.error || 'Setup failed.');
+            });
+            // After setup, log in
+            AUTH_MODE = 'login';
         }
+        const res = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pw })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed.');
+        setToken(data.token);
+        document.getElementById('auth-password').value = '';
+        document.getElementById('auth-password-confirm').value = '';
+        enterApp();
+    } catch (e) {
+        err.textContent = e.message;
+    } finally {
+        btn.disabled = false;
+    }
+}
 
-        // ═══ BOOT ════════════════════════════════════════════════════
-        initAuth();
-    </script>
+// Allow pressing Enter on the password fields to submit
+document.getElementById('auth-password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitAuth();
+});
+document.getElementById('auth-password-confirm').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitAuth();
+});
+
+async function logout() {
+    try {
+        await fetch('/api/admin/logout', {
+            method: 'POST',
+            headers: { 'X-Admin-Token': TOKEN }
+        });
+    } catch (e) { /* ignore */ }
+    setToken('');
+    showAuthScreen();
+}
+
+// ═══ CHANGE PASSWORD ═══════════════════════════════════════
+async function changePassword() {
+    const cur = document.getElementById('cfg-current-password');
+    const nw  = document.getElementById('cfg-new-password');
+    const cnf = document.getElementById('cfg-confirm-password');
+    const status = document.getElementById('password-status');
+    status.textContent = '';
+    status.style.color = '';
+
+    if (!cur.value || !nw.value || !cnf.value) {
+        status.textContent = 'All fields are required.';
+        status.style.color = '#c1272d';
+        return;
+    }
+    if (nw.value.length < 8) {
+        status.textContent = 'New password must be at least 8 characters.';
+        status.style.color = '#c1272d';
+        return;
+    }
+    if (nw.value !== cnf.value) {
+        status.textContent = 'New passwords do not match.';
+        status.style.color = '#c1272d';
+        return;
+    }
+
+    try {
+        await api('POST', '/api/admin/password', {
+            currentPassword: cur.value,
+            newPassword: nw.value
+        });
+        cur.value = ''; nw.value = ''; cnf.value = '';
+        status.textContent = 'Password updated successfully.';
+        status.style.color = 'var(--accent)';
+    } catch (e) {
+        status.textContent = e.message;
+        status.style.color = '#c1272d';
+    }
+}
+
+// ═══ BOOT ════════════════════════════════════════════════════
+initAuth();
+</script>
 </body>
-
 </html>
