@@ -930,6 +930,11 @@
                         <input type="number" id="cfg-go-response-window" min="500" max="10000" value="2500">
                         <div class="hint">How long the participant has to lift their finger after the LIFT prompt before being scored too slow</div>
                     </div>
+                    <div class="form-field">
+                        <label>Inter-Trial Delay (ms)</label>
+                        <input type="number" id="cfg-inter-trial-delay" min="0" max="10000" value="1500">
+                        <div class="hint">Pause between trials, after one trial ends and before the next begins</div>
+                    </div>
                 </div>
 
                 <div class="toggle-row">
@@ -1396,6 +1401,7 @@ async function loadConfigForm() {
         document.getElementById('cfg-tutorial-nogo-count').value = cfgData.TUTORIAL_NOGO_TRIAL_COUNT || 2;
         document.getElementById('cfg-nogo-hold-duration').value = cfgData.NOGO_HOLD_DURATION || 5000;
         document.getElementById('cfg-go-response-window').value = cfgData.GO_RESPONSE_WINDOW || 2500;
+        document.getElementById('cfg-inter-trial-delay').value = cfgData.INTER_TRIAL_DELAY ?? 1500;
         document.getElementById('cfg-press-hold-text').value = cfgData.PRESS_HOLD_TEXT || 'Press & Hold';
         document.getElementById('cfg-pending-prompt-text').value = cfgData.PENDING_PROMPT_TEXT || 'Hold...';
         document.getElementById('cfg-skip-late-release').checked = !!cfgData.SKIP_ON_LATE_RELEASE;
@@ -1465,6 +1471,7 @@ async function saveConfig() {
         TUTORIAL_NOGO_TRIAL_COUNT: parseInt(document.getElementById('cfg-tutorial-nogo-count').value) || 2,
         NOGO_HOLD_DURATION: parseInt(document.getElementById('cfg-nogo-hold-duration').value) || 5000,
         GO_RESPONSE_WINDOW: parseInt(document.getElementById('cfg-go-response-window').value) || 2500,
+        INTER_TRIAL_DELAY: parseInt(document.getElementById('cfg-inter-trial-delay').value),
         PRESS_HOLD_TEXT: document.getElementById('cfg-press-hold-text').value || 'Press & Hold',
         PENDING_PROMPT_TEXT: document.getElementById('cfg-pending-prompt-text').value || 'Hold...',
         SKIP_ON_LATE_RELEASE: document.getElementById('cfg-skip-late-release').checked,

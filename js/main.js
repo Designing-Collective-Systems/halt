@@ -7,7 +7,7 @@ const CONFIG = {
     showInstructionFeedback: true,
     tutorialEnabled: true,
     practiceEnabled: true,
-    nogoHoldDuration: 5000,
+    nogoHoldDuration: 3000,
     goResponseWindow: 1000,
     pressHoldText: 'Press & Hold',
     pendingPromptText: ' ',
@@ -23,6 +23,7 @@ const CONFIG = {
     tutorialGoTrialCount: 2,
     tutorialNogoTrialCount: 2,
     animationSpeed: 1.0,
+    interTrialDelay: 1000,
 };
 
 
@@ -151,6 +152,7 @@ async function loadConfig() {
         CONFIG.tutorialNogoTrialCount = cfg.TUTORIAL_NOGO_TRIAL_COUNT ?? CONFIG.tutorialNogoTrialCount;
         CONFIG.pressHoldText   = cfg.PRESS_HOLD_TEXT   ?? CONFIG.pressHoldText;
         CONFIG.animationSpeed  = cfg.ANIMATION_SPEED   ?? CONFIG.animationSpeed;
+        CONFIG.interTrialDelay = cfg.INTER_TRIAL_DELAY  ?? CONFIG.interTrialDelay;
         if (cfg.INSTRUCTION_TEXTS) {
             INSTRUCTION_TEXTS = Object.assign({}, INSTRUCTION_STEP_DEFAULTS, cfg.INSTRUCTION_TEXTS);
         }
@@ -563,6 +565,13 @@ function handleTutorialPressStart(step) {
         return;
     }
 
+    if (STATE.trialState === 'stimulus' && step.trialType === 'nogo' && STATE.noGoSlipStartTime) {
+        // Recovery — participant re-presses during the slip window before nogoHoldDuration expires.
+        STATE.isHolding = true;
+        updateTutorialButtonAppearance();
+        return;
+    }
+
     if (STATE.trialState === 'waiting') {
         STATE.isHolding = true;
         STATE.trialState = 'holding';
@@ -644,9 +653,10 @@ function handleTutorialPressEnd(step) {
             updateTutorialButtonAppearance();
         }, 1000);
         } else if (step.trialType === 'nogo') {
+            // Record the slip but keep the hold timeout running. If the participant
+            // re-presses before the window closes, the timeout's isHolding check
+            // counts the trial as a success — same recovery path as the main task.
             STATE.noGoSlipStartTime = Date.now();
-            clearTimeout(noGoTimeout);
-            showTutorialRetry("You lifted your finger! Remember: HOLD means keep holding. Let's try again!");
         }
     }
 
@@ -1464,7 +1474,7 @@ function advanceTrial() {
                 setTrialState('waiting');
                 updateUI();
             }
-        }, 1500);
+        }, CONFIG.interTrialDelay);
     }
 }
 
